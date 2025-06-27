@@ -1,6 +1,6 @@
 # Table of contents
 
-* [👋 Welcome to A Product](README.md)
+* [👋 The Zongsoft Documentation Center](README.md)
 
 ## Overview
 
