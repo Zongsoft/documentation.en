@@ -80,6 +80,7 @@ These guides follow the process of building a plugin-based application. For pack
 
 ## Explore by Need
 
+- To define module boundaries, design extension contracts, or evolve an existing system, read the [Plugin Design Essays](overview/pluginization.md#plugin-design-essays).
 - To understand hosts, modules, services, and providers, read [Core Concepts](overview/concepts.md) and [Service Resolution](framework/core/services/locating.md).
 - For business data and HTTP APIs, start with [your first query](framework/data/quickstart.md), continue to [Data Services](framework/data/services.md), and then add [Web Controllers](framework/web/controllers.md).
 - For asynchronous work and external infrastructure, read [Message Delivery Concepts](framework/messaging/concepts.md), [Task Scheduling](framework/externals/execution.md), and the [Extension Index](framework/externals.md).

@@ -9,6 +9,10 @@
 * [Architecture Overview](overview/architecture.md)
 * [Core Concepts and Collaboration](overview/concepts.md)
 * [Plugin Architecture](overview/pluginization.md)
+  * [Finding Module Boundaries Through Business Changes](overview/pluginization/business-boundaries.md)
+  * [Reusing Business Capabilities Across Hosts](overview/pluginization/host-independent-business.md)
+  * [Designing Extension Points as Collaboration Contracts](overview/pluginization/extension-contracts.md)
+  * [From Incremental Change to Verified Plugin Delivery](overview/pluginization/evolutionary-delivery.md)
 * [Deployment Model](overview/deployment.md)
 
 ## Get Started <a href="#get-started" id="get-started"></a>

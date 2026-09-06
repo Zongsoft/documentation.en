@@ -59,6 +59,8 @@ Focus on host startup, configuration loading, plugin directory locations, servic
 
 ## Further Reading
 
+Before writing manifests, explore the [Plugin Design Essays](../../overview/pluginization.md#plugin-design-essays) to clarify module ownership, extension contracts, and delivery responsibilities.
+
 <table data-view="cards">
 	<thead>
 		<tr>

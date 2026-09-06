@@ -32,6 +32,15 @@ Plugin architecture solves the organizational problems of large business systems
 - Business plugins that do not depend on a particular interaction model or protocol can be reused across host types. Controllers and ASP.NET middleware, however, must run within a Web host.
 - Configurations, mappings, and resources can be deployed with the plugin.
 
+## Plugin Design Essays
+
+These four essays examine design choices and their costs through the existing forum implementation. Read them in order or start with your current question. “Proposed” in the illustrations identifies a design scenario; the text explains which capabilities currently exist.
+
+1. [Finding Module Boundaries Through Business Changes](pluginization/business-boundaries.md): Use changes to moderation, content, and statistics to establish ownership.
+2. [Reusing Business Capabilities Across Hosts](pluginization/host-independent-business.md): Separate business operations, entry adapters, identity, and lifecycles.
+3. [Designing Extension Points as Collaboration Contracts](pluginization/extension-contracts.md): Define extension paths, service calls, names, and failure semantics.
+4. [From Incremental Change to Verified Plugin Delivery](pluginization/evolutionary-delivery.md): Validate release combinations and evaluate data compatibility and process separation.
+
 ## Document Reading Suggestions
 
 Read [Plugin Framework](../framework/plugins/README.md) first to understand the application model, and then read [Deploy Your First Plugin](../get-started/deploy-first-plugin.md) to understand how the plugin enters the host. When you need to delve into data access, enter [Data Engine](../framework/data/README.md).
