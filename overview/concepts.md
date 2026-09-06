@@ -5,7 +5,7 @@ icon: shapes
 
 # Core Concepts and Collaboration
 
-This page takes "Discussions forum module provides topic query interface" as an example to illustrate several similar terms in the framework. Distinguish these concepts first, and then read the configuration and code, it will be easier to determine in which link a problem occurs.
+This page uses a forum module that exposes a thread-query API to explain several similar framework terms. Understanding these concepts before reading configuration and code makes it easier to locate the stage at which a problem occurs.
 
 ## Host and Content Root <a id="host"></a>
 
@@ -15,9 +15,9 @@ Therefore, after deployment, you should enter the runtime directory and then sta
 
 ## Plugins and Assembly <a id="plugin"></a>
 
-**assembly**contains executable .NET types.**plugin** is described by the `.plugin` manifest, which declares dependencies, assembly and extension contributions; a plugin can contain multiple assemblies, or it can only contribute assembly configurations.
+**Assemblies** contain executable .NET types. A **plugin** is described by a `.plugin` manifest that declares dependencies, assemblies, and extension points. A plugin can include multiple assemblies or contribute composition configuration alone.
 
-Project references let the compiler see types; plugin manifests let the runtime know what to load; and deployment files let the necessary files appear in the correct location. These three links are not substitutes for each other. For example, the Discussions.Web project can be compiled, but the Zongsoft.Discussions.Web.plugin is not deployed, and its controller is still not loaded according to the manifest during runtime.
+Project references let the compiler see types; plugin manifests let the runtime know what to load; and deployment files let the necessary files appear in the correct location. These three links are not substitutes for each other. For example, the [Discussions.Web](https://github.com/Zongsoft/discussions/tree/main/src/api) project can be compiled, but the [Zongsoft.Discussions.Web.plugin](https://github.com/Zongsoft/discussions/blob/main/src/api/Zongsoft.Discussions.Web.plugin) is not deployed, and its controller is still not loaded according to the manifest during runtime.
 
 ## Plugin Tree and Builtin <a id="plugin-tree"></a>
 
@@ -39,7 +39,9 @@ Builtin names are tree node names and do not automatically become service aliase
 
 ## Modules, Services and Providers <a id="module-service-provider"></a>
 
-**module** expresses the business boundaries in the application, such as Discussions. A module can be provided by several plugins; plugin loading does not automatically create business modules for each plugin. The application needs to define a module and mount the module object to `/Workbench/Modules`.
+**module** expresses the business boundaries in the application, such as Discussions. A module can be provided by several plugins; plugin loading does not automatically create business modules for each plugin. The application defines its modules explicitly. To include a module in the [application module](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationModule.cs) collection, it can mount the module object at `/Workbench/Modules`.
+
+> 💡 Mounting a module at `/Workbench/Modules` is equivalent to adding it to the [`ApplicationContext.Current.Modules`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/ApplicationContext.cs) collection. Although this is optional, a shared module collection lets the system provide consistent capabilities across modules. For example, [Zongsoft.Web.OpenApi](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Web/openapi) uses the [application module](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationModule.cs) collection to group API documentation by module.
 
 **service**is an object that provides certain operations through a contract.**service container** is responsible for parsing these objects by type, alias, or matching parameters. The module container first searches for module services, and then falls back to apply shared services; its lifecycle is not equal to the Web request lifecycle.
 
@@ -72,7 +74,7 @@ The list of Discussions plugins can be kept stable with different connection con
 
 ## Workers, Initializers and Ordinary Services <a id="lifetime"></a>
 
-Initializers are used for configuration or assembly in the initialization phase of an application; workers are used for tasks that need to be started, run continuously, and stopped when shut down; ordinary services are used to perform an operation on a call basis. Writing "subscribe to messages and keep listening" in the constructor will make object assembly, external connections and failure handling entangled, which should usually be managed by workers.
+[Initializers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) are used for configuration or assembly in the initialization phase of an application; [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) are used for tasks that need to be started, run continuously, and stopped when shut down; ordinary services are used to perform an operation on a call basis. Writing "subscribe to messages and keep listening" in the constructor will make object assembly, external connections and failure handling entangled, which should usually be managed by workers.
 
 Common types registered through service attribute scanning default to singleton. The creation and release of shared instances is determined by registration and provider contracts. When you need to call independent state each time, you should clarify the scope or use a factory, and do not deduce "new each time" from "named" and "modular".
 

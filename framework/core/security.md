@@ -103,7 +103,7 @@ Converters come from two sources:
 * `ClaimsPrincipalTransformer.Transformers` in `Authentication.Transformer`.
 * `IClaimsIdentityTransformer` in the current application service container.
 
-The conversion result will be cached with `CredentialId` and _scheme_ as keys; the cache will be invalidated when the credential body is released. UserIdentity.Current of Discussions reads the model by Zongsoft.Discussions scheme:
+The conversion result will be cached with `CredentialId` and _scheme_ as keys; the cache will be invalidated when the credential body is released. UserIdentity.Current of Discussions reads the model by [Zongsoft.Discussions](https://github.com/Zongsoft/discussions/tree/main/src) scheme:
 
 Source: [src/Security/UserIdentity.cs](https://github.com/Zongsoft/Zongsoft.Discussions/blob/main/src/Security/UserIdentity.cs#L110) (excerpt; see source for context).
 
@@ -178,7 +178,7 @@ The verification code name should include the business scenario and target ident
 
 * Read the user number from the primary identity and query or create a Discussions user profile.
 * SiteId is determined from the identity namespace when creating a profile; existing profiles retain their own site information.
-* Call OnVerify extension point, and then create the Zongsoft.Discussions identity to join the subject.
+* Call OnVerify extension point, and then create the [Zongsoft.Discussions](https://github.com/Zongsoft/discussions/tree/main/src) identity to join the subject.
 * Write SiteId, Gender, Avatar, Grade, TotalPosts, and TotalThreads statements.
 
 Currently OnVerify is an empty implementation and cannot be used to claim verified account activation status, site status, or permission scope; these business admission rules need to be supplemented by actual modules. The data statistics statement is also a snapshot at the time of issuance and will not be automatically refreshed with each post.

@@ -5,11 +5,11 @@ icon: server
 
 # Zongsoft.Services
 
-`Zongsoft.Services` is the service model of Zongsoft runtime. It connects standard .NET dependency injection, application context, application modules, and plugin trees, allowing hosts, plugin assemblies, and declarative builtins to register capabilities into the same runtime and resolve them by application, module, or plugin tree location.
+`Zongsoft.Services` is the service model of Zongsoft runtime. It connects standard .NET dependency injection, application context, [application modules](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationModule.cs), and plugin trees, allowing hosts, plugin assemblies, and declarative builtins to register capabilities into the same runtime and resolve them by application, module, or plugin tree location.
 
 It is not intended to replace .NET DI, but rather complements these capabilities on top of [`IServiceCollection`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection) _[Source](https://source.dot.net/#Microsoft.Extensions.DependencyInjection.Abstractions/IServiceCollection.cs)_, `System.IServiceProvider`, and [`IServiceProviderFactory<TContainerBuilder>`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.dependencyinjection.iserviceproviderfactory-1) _[Source](https://source.dot.net/#Microsoft.Extensions.DependencyInjection.Abstractions/IServiceProviderFactory.cs)_:
 
-* application context: Use [`IApplicationContext`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationContext.cs) to represent the current application instance, uniformly exposing configuration, environment, modules, services, events, workers and lifecycle.
+* application context: Use [`IApplicationContext`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationContext.cs) to represent the current application instance, uniformly exposing configuration, environment, modules, services, events, [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) and lifecycle.
 * Application module: Use [`IApplicationModule`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationModule.cs) to represent a subsystem or plugin module, and provide the module with its own service resolution domain.
 * Service discovery: Find services by service name, tags, matching parameters, module names, and plugin tree expressions, rather than just parsing by type.
 * Service building: String declarative registration, code registration and property injection through [`ServiceAttribute`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/ServiceAttribute.cs), [`IServiceRegistration`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IServiceRegistration.cs), [`ServiceDependencyAttribute`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/ServiceDependencyAttribute.cs) and [`ServiceProviderFactory`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/ServiceProviderFactory.cs).
@@ -126,12 +126,12 @@ Resolution by name relies on the name mapping recorded during the registration p
 
 ### Parse by Type
 
-Parsing by type is suitable for ordinary dependencies: the caller knows which contract is required and does not care who implements it. `Resolve<T>()` is suitable for optional dependencies, `ResolveRequired<T>()` is suitable for strong dependencies that fail if missing, and `ResolveAll<T>()` is suitable for multi-implementation collections such as initializers, handlers, and filters.
+Parsing by type is suitable for ordinary dependencies: the caller knows which contract is required and does not care who implements it. `Resolve<T>()` is suitable for optional dependencies, `ResolveRequired<T>()` is suitable for strong dependencies that fail if missing, and `ResolveAll<T>()` is suitable for multi-implementation collections such as [initializers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs), handlers, and filters.
 
 There are two typical usages in [`ApplicationContext`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/ApplicationContext.cs):
 
 * `Exit(...)` finds the current [`IHost`](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.hosting.ihost) _[Source](https://source.dot.net/#Microsoft.Extensions.Hosting.Abstractions/IHost.cs)_ via `Resolve<IHost>()`. Only when the host and lifecycle services exist and the host has not been stopped, the process will be stopped; then System.Environment.Exit will still be called to exit the process. Therefore this method cannot be treated as a "do nothing without a host" query.
-* `Initialize()` collects all application initializers through `ResolveAll<IApplicationInitializer>()` and then executes them one by one.
+* `Initialize()` collects all application [initializers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) through `ResolveAll<IApplicationInitializer>()` and then executes them one by one.
 
 Source: [framework/Zongsoft.Core/src/Services/ApplicationContext.cs](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/ApplicationContext.cs#L150) (excerpt; see source for context).
 
@@ -286,7 +286,7 @@ In [`Listener.Metrics.cs`](https://github.com/Zongsoft/framework/blob/main/Zongs
 
 For static members and their Service annotations, see the real source code snippet of "Static Member Registration" above.
 
-When `ServiceCollectionExtension` scans this annotation, it will register the `Metrics` member value as a service and classify the service type into the `gRPC` tag. By [`GrpcInitializer`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Web/grpc/GrpcInitializer.cs), the initializer does not need to know which diagnostics or business gRPC services there are, it only needs to read the service type under the tag:
+When `ServiceCollectionExtension` scans this annotation, it will register the `Metrics` member value as a service and classify the service type into the `gRPC` tag. By [`GrpcInitializer`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Web/grpc/GrpcInitializer.cs), the [initializer](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) does not need to know which diagnostics or business gRPC services there are, it only needs to read the service type under the tag:
 
 Source: [framework/Zongsoft.Web/grpc/GrpcInitializer.cs](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Web/grpc/GrpcInitializer.cs#L57) (excerpt; see source for context).
 
@@ -307,7 +307,7 @@ public void Initialize(IApplicationBuilder builder)
 ```
 {% endcode %}
 
-The applicable scenario of this example is clear: the plugin or module is responsible for declaring "I am a gRPC service", and the Web gRPC initializer is responsible for uniformly mapping all services with the `gRPC` label. Both parties do not need to reference each other's specific implementations.
+The applicable scenario of this example is clear: the plugin or module is responsible for declaring "I am a gRPC service", and the Web gRPC [initializer](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) is responsible for uniformly mapping all services with the `gRPC` label. Both parties do not need to reference each other's specific implementations.
 
 ### Parse by Tag
 
@@ -362,7 +362,7 @@ Source: [src/Module.cs](https://github.com/Zongsoft/Zongsoft.Discussions/blob/ma
 ```
 {% endcode %}
 
-Discussions Declare the ApplicationModule on the assembly and define Module.NAME as Discussions. Property injection for MessageSendCommand explicitly selects the same module service domain.
+Discussions Declare the [ApplicationModule](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/ApplicationModule.cs) on the assembly and define Module.NAME as Discussions. Property injection for MessageSendCommand explicitly selects the same module service domain.
 
 When an object is located under a module or plugin tree node, the framework will try to select a service container based on the module to which the object belongs. In this way, business plugins can declare their own module services while still reusing application-level public services.
 
@@ -391,7 +391,7 @@ If `ServiceName` is set, the injector will instead use the `GetService(string)` 
 
 ## Service Discovery in Plugins
 
-The `{service:...}` expression in the plugin manifest is processed by [`ServicesParser`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Plugins/src/Services/ServicesParser.cs) in `Zongsoft.Plugins`. Instead of simply fetching objects from the global container, it selects the service domain based on the current builtin location and explicit container name.
+The `{service:...}` expression in the plugin manifest is processed by [`ServicesParser`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Plugins/src/Services/ServicesParser.cs) in [`Zongsoft.Plugins`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Plugins). Instead of simply fetching objects from the global container, it selects the service domain based on the current builtin location and explicit container name.
 
 | expression | result |
 | --- | --- |
@@ -424,9 +424,9 @@ The application builder in `Zongsoft.Plugins.Hosting` orchestrates service regis
 6. Register the default `System.Net.Http.HttpClient` service.
 7. Register the builtin under `/Workspace/Environment/Services` as a singleton service.
 8. Build the Host and initialize [`PluginApplicationContext`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Plugins/src/PluginApplicationContext.cs) through `Initialize()`.
-9. When the application starts, open the workbench and load the worker under `/Workbench/Startup`.
+9. When the application starts, open the [workbench](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Plugins/src/IWorkbenchBase.cs) and load the [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) under `/Workbench/Startup`.
 
-`Daemon` and `Terminal` will first register their respective application context implementations and then map to `PluginApplicationContext` and `IApplicationContext`. This means that application code typically only depends on `IApplicationContext`, while the plugin host still has access to the plugin tree and workbench using a more specific plugin context.
+`Daemon` and `Terminal` will first register their respective application context implementations and then map to [`PluginApplicationContext`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Plugins/src/PluginApplicationContext.cs) and [`IApplicationContext`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationContext.cs). This means that application code typically only depends on `IApplicationContext`, while the plugin host still has access to the plugin tree and [workbench](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Plugins/src/IWorkbenchBase.cs) using a more specific plugin context.
 
 ## Usage Suggestions
 
@@ -435,7 +435,7 @@ The application builder in `Zongsoft.Plugins.Hosting` orchestrates service regis
 * Objects that need to be declared in the plugin manifest and can be assembled by configuration or path expressions are placed in `/Workspace/Environment/Services`.
 * Objects that need to be discovered by other plugins according to the extension point are first hung in the agreed plugin tree path instead of being forcibly put into the DI container.
 * When there are multiple implementations of the same contract, use `Find<T>(argument)`, `IMatchable`, `IMatcher<T>` or tag organization. Do not hard-code the implementation selection logic on the caller.
-* The internal services of the module should be marked with `ApplicationModuleAttribute` as much as possible so that the module container can prioritize the implementation of this module.
+* The internal services of the module should be marked with [`ApplicationModuleAttribute`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/ApplicationModuleAttribute.cs) as much as possible so that the module container can prioritize the implementation of this module.
 
 {% hint style="warning" %}
 The common types `ServiceAttribute` scanned and registered are registered as singleton by default. Short lifecycle objects that contain mutable state, requested state, or need to be released should register an explicit lifecycle with code, or create it through a factory service.

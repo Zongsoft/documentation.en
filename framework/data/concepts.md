@@ -5,7 +5,7 @@ icon: diagram-project
 
 # Object Relationships and Data Access
 
-The business code operates order, customer, and detail objects; the relational database stores tables, rows, columns, and associated keys. Object-relational mapping (ORM) is responsible for connecting these two representations. Zongsoft.Data uses explicit mapping and data schema to allow the business to describe "which entities, fields and relationships are accessed", which are then executed by the engine and driver.
+The business code operates order, customer, and detail objects; the relational database stores tables, rows, columns, and associated keys. Object-relational mapping (ORM) is responsible for connecting these two representations. [Zongsoft.Data](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Data) uses explicit mapping and data schema to allow the business to describe "which entities, fields and relationships are accessed", which are then executed by the engine and driver.
 
 ## Four Levels
 

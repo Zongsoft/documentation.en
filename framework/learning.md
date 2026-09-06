@@ -42,7 +42,7 @@ If the directory is missing, first check the plugin manifest, extension registra
 
 ## Current Implementation Limitations
 
-Currently, the Populate override of TextFileLoader.Settings still uses System.Reflection.PropertyInfo, while the corresponding virtual method of Core already uses System.Reflection.MemberInfo; there is a signature incompatibility between the two source code version combinations, so you should first check the build results and reference versions. PipelineController also only declares Area and HttpGet, so it cannot be inferred that there are complete reachable routes just by relying on the default MapControllers.
+Currently, the Populate override of TextFileLoader.Settings still uses System.Reflection.PropertyInfo, while the corresponding virtual method of [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) already uses System.Reflection.MemberInfo; there is a signature incompatibility between the two source code version combinations, so you should first check the build results and reference versions. PipelineController also only declares Area and HttpGet, so it cannot be inferred that there are complete reachable routes just by relying on the default MapControllers.
 
 {% hint style="warning" %}
 🚨 The current source code's `Pipeline.Build` calls `estimator.Append(estimator)` in subsequent steps, and the results are not accumulated back into the pipeline; therefore, the multi-step configuration cannot be deemed to have been correctly concatenated based on this. Empty step lists return empty results, and unknown step names also lack complete error conversions. These paths need to be fixed and verified before formal training.

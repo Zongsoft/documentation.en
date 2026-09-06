@@ -10,7 +10,7 @@ This article directly reads and builds the Discussions business plugin. First un
 
 ## 1. Build an Existing Business Library
 
-The project supports .NET 8, 9, and 10; NuGet versions are defined in the root Directory.Packages.props. See [Prerequisites](prerequisites.md) for the current Core dependency and local-reference requirements. From the discussions root, first build Core and Web in the sibling framework repository, then build Discussions with local references. All commands below use the default Debug configuration, target .NET 10, and disable package generation:
+The project supports .NET 8, 9, and 10; NuGet versions are defined in the root Directory.Packages.props. See [Prerequisites](prerequisites.md) to prepare the SDK and source directories. The following example uses local references: from the discussions root, first build [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) and Web in the sibling framework repository, then build Discussions. All commands below use the default Debug configuration, target .NET 10, and disable package generation:
 
 {% code title="Build Discussions" %}
 ```powershell
@@ -21,7 +21,7 @@ dotnet build src/api/Zongsoft.Discussions.Web.csproj -f net10.0 -p:ZongsoftFrame
 ```
 {% endcode %}
 
-`-p:ZongsoftFrameworkPathReferenced=true` selects local assemblies but does not build framework automatically. Paths, configuration, and target frameworks must match its output. Once the required Core version is available from your NuGet source, you can omit the property and use the default package-reference path. Until then, local references are required for the current source, not merely an optional debugging setting.
+`-p:ZongsoftFrameworkPathReferenced=true` selects local assemblies but does not build framework automatically. Paths, configuration, and target frameworks must match its output. If your NuGet source already provides the required versions of [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) and the other dependencies, you can omit the property and use the default package references.
 
 ## 2. The Module Is the Composition Entry Point
 

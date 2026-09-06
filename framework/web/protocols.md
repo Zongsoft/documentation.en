@@ -20,7 +20,7 @@ nuget:Zongsoft.Web.OpenApi
 ```
 {% endcode %}
 
-Preserve in-package manifests, options, and dependencies. The initializer registers the document endpoint and Scalar interface. The default endpoints are `/openapi/v1.json`, `/openapi/v1.yaml` (yml is also accepted), and `/scalar`.
+Preserve in-package manifests, options, and dependencies. The [initializer](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) registers the document endpoint and Scalar interface. The default endpoints are `/openapi/v1.json`, `/openapi/v1.yaml` (yml is also accepted), and `/scalar`.
 
 The document is generated based on the discovered controller and operand data; attribute routing directly participates in the generation, and conventional routing also requires the actual running of the routing table. There is no real mapped endpoint, and it cannot be turned into a callable interface by writing a document configuration.
 
@@ -31,7 +31,7 @@ The configuration section is `/web/openapi` and can declare the server, environm
 First open the JSON document, confirm the business path, method and parameter source, and then use Scalar to initiate a real request. When encountering inconsistencies between documents and routes, check attribute routes and controller descriptors without modifying the business logic first.
 
 {% hint style="warning" %}
-🚨 The current initializer enables Scalar authentication information persistence and generates a sample Credential value; this random value is not a valid server-issued login credential. Real credentials should not be saved on shared devices, and the visibility of documents and management interfaces should be limited by the application.
+🚨 The current [initializer](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) enables Scalar authentication information persistence and generates a sample Credential value; this random value is not a valid server-issued login credential. Real credentials should not be saved on shared devices, and the visibility of documents and management interfaces should be limited by the application.
 {% endhint %}
 {% endtab %}
 
@@ -63,14 +63,14 @@ partial class Listener
 
 MetricsProcessor inherits MetricsService.MetricsServiceBase in the same file and implements the Export method. Members here means registering static members; it and direct registration service type are the two entrances supported by the service system. See [OTLP Integration](../diagnostics/otlp.md) for the complete call chain.
 
-The initializer reads the type under the tag and maps the service. Merely inheriting to generate a base class or simply copying a DLL is not enough to accomplish endpoint discovery.
+The [initializer](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) reads the type under the tag and maps the service. Merely inheriting to generate a base class or simply copying a DLL is not enough to accomplish endpoint discovery.
 
 ## Agreement and Cancellation
 
 Hosts and proxies must support the required HTTP/2, TLS, message sizes, and deadlines. Service implementations should pass call cancellation to downstream operations; a client timeout does not mean that the performed write operation is undone. The actual call should be made using a client that matches the protocol, gRPC methods cannot be authenticated with normal JSON requests.
 
 {% hint style="warning" %}
-🚨 The current initializer also maps gRPC reflection, which can expose service metadata. The access policy should be clearly defined during deployment, and the protocol management plane should not be made public by default.
+🚨 The current [initializer](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) also maps gRPC reflection, which can expose service metadata. The access policy should be clearly defined during deployment, and the protocol management plane should not be made public by default.
 {% endhint %}
 {% endtab %}
 {% endtabs %}

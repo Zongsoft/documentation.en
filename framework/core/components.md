@@ -5,14 +5,14 @@ icon: cubes
 
 # Zongsoft.Components
 
-`Zongsoft.Components` is the component model namespace in the core class library, covering basic builtins such as commands, execution pipelines, handlers, filters, converters, supervised objects, workers, identifiers, and event exchanges. Its goal is not to provide a specific business capability, but to provide a set of runtime abstractions for business objects in different fields that are composable, extensible, and reusable by the host.
+`Zongsoft.Components` is the component model namespace in the core class library, covering basic builtins such as commands, execution pipelines, handlers, filters, converters, supervised objects, [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs), identifiers, and event exchanges. Its goal is not to provide a specific business capability, but to provide a set of runtime abstractions for business objects in different fields that are composable, extensible, and reusable by the host.
 
 ## Main Responsibilities
 
 * Define component identities, aliases, weights, named objects, and service descriptions so components can be discovered, described, and selected.
 * Provides command mode, command tree, command expression parsing, command exit and parameter binding to trigger business actions across domains and with low coupling.
 * Provides execution pipelines, handlers, and filters to organize context, execution logic, and cross-cutting features into scalable execution units.
-* Provides runtime component modes such as worker, monitor, weighted selector, and attempt tracker for background tasks, status observation, and failure control.
+* Provides runtime component modes such as [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs), monitor, weighted selector, and attempt tracker for background tasks, status observation, and failure control.
 * Provide common converters, state machines and component feature extensions to reduce repeated implementation of infrastructure code.
 
 ## Command Mode
@@ -29,8 +29,8 @@ This mode is particularly suitable for cross-domain calls. The caller only needs
 
 | namespace | Description |
 | --- | --- |
-| `Zongsoft.Components` | Core types of command models, such as `ICommand`, `CommandBase`, `CommandContext`, `CommandNode`, `CommandLine`, and `CommandExecutor`. |
-| `Zongsoft.Components.Commands` | Built-in component commands implemented based on the command model, such as worker start, stop, pause, resume and status query commands. |
+| `Zongsoft.Components` | [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) types of command models, such as `ICommand`, `CommandBase`, `CommandContext`, `CommandNode`, `CommandLine`, and `CommandExecutor`. |
+| `Zongsoft.Components.Commands` | Built-in component commands implemented based on the command model, such as [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) start, stop, pause, resume and status query commands. |
 | `Zongsoft.Components.Converters` | Common converters for Boolean, enum, version, schema, etc. |
 | `Zongsoft.Components.Features` | Retry, Fallback, Breaker, Throttle, Timeout and other execution feature models. |
 | `Zongsoft.Components.States` | State machine, state diagram, state context, state handler and state flow. |
@@ -62,7 +62,7 @@ This mode is particularly suitable for cross-domain calls. The caller only needs
 			<td><a href="components/events.md">events.md</a></td>
 		</tr>
 		<tr>
-			<td>Worker: A background worker model that can start, stop, pause, and resume.</td>
+			<td><a href="https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs">Worker</a>: A background worker model that can start, stop, pause, and resume.</td>
 			<td><a href="components/worker.md">worker.md</a></td>
 		</tr>
 		<tr>

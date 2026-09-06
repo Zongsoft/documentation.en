@@ -25,7 +25,7 @@ icon: database
 
 ## Create Cache
 
-Discussions Indirectly use the framework's cache reuse mechanism through data accessors. The independent demonstration of the cache itself comes from Core's memorycache interactive program: frequency of one second, sliding expiration of thirty seconds, and quantity reminder threshold. You can create independent cache instances directly or use shared instances.
+Discussions Indirectly use the framework's cache reuse mechanism through data accessors. The independent demonstration of the cache itself comes from [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core)'s memorycache interactive program: frequency of one second, sliding expiration of thirty seconds, and quantity reminder threshold. You can create independent cache instances directly or use shared instances.
 
 Source: [framework/Zongsoft.Core/samples/memorycache/Program.cs](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/samples/memorycache/Program.cs#L13) (excerpt; see source for context).
 

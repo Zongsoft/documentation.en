@@ -78,7 +78,7 @@ public void OnFiltered(DataSelectContextBase context)
 ```
 {% endcode %}
 
-OnFiltering occurs before the query; there is no final result to wrap yet. OnFiltered only establishes delayed filtering for results. [FilteredResult](https://github.com/Zongsoft/Zongsoft.Discussions/blob/main/src/Data/FilteredResult.cs) only adapts to the synchronous/asynchronous interface and forwards paging notifications. Enumeration and filtering directly use Core implementation. See [Filters](../core/components/filter.md) for its version requirements and lifecycle. The file cannot be read repeatedly in the Current property, otherwise the text may be mistaken for the path if the same element is read multiple times.
+OnFiltering occurs before the query; there is no final result to wrap yet. OnFiltered only establishes delayed filtering for results. [FilteredResult](https://github.com/Zongsoft/Zongsoft.Discussions/blob/main/src/Data/FilteredResult.cs) only adapts to the synchronous/asynchronous interface and forwards paging notifications. Enumeration and filtering directly use [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) implementation. See [Filters](../core/components/filter.md) for its version requirements and lifecycle. The file cannot be read repeatedly in the Current property, otherwise the text may be mistaken for the path if the same element is read multiple times.
 
 ## Integration HTTP
 

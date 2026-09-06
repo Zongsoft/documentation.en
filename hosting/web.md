@@ -34,7 +34,7 @@ When adding a new site, you should also adjust the `site` and corresponding opti
 
 ## Build and Deploy
 
-The project references the output of the adjacent framework by default. The current web project also needs to check its Release reference path. When the plugin reports `Zongsoft.Web` assembly version mismatch, first check the framework output and final DLL, and then redeploy the host.
+The project references the output of the adjacent framework by default. The current web project also needs to check its Release reference path. When the plugin reports [`Zongsoft.Web`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Web) assembly version mismatch, first check the framework output and final DLL, and then redeploy the host.
 
 The runtime directory requires the host's own dependency files, `appsettings.json`, plugin list and resources. Simply copying the business controller DLL is not a substitute for full plugin deployment. See [Deploy Controller Plugins](../framework/web/controllers.md) for a complete example of a stand-alone probe controller.
 

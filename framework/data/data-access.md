@@ -19,7 +19,7 @@ public IDataAccess Accessor => _accessor ??= this.Services.ResolveRequired<IData
 ```
 {% endcode %}
 
-The name here is Discussions. The provider manages the accessor, and the business method should not release the shared accessor after each query. The assembly only references the Core contract; the data engine and driver are deployed by the host, see [First query](quickstart.md).
+The name here is Discussions. The provider manages the accessor, and the business method should not release the shared accessor after each query. The assembly only references the [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) contract; the data engine and driver are deployed by the host, see [First query](quickstart.md).
 
 ## Using Accessors Within Services
 

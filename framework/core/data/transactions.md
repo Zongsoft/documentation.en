@@ -7,10 +7,6 @@ icon: rotate
 
 `Zongsoft.Data.Transaction` provides lightweight ambient transaction objects in the core class library. Transaction status, transaction information, transaction stages and transaction participation registration types are located in the `Zongsoft.Data.Transactions` namespace. It is used to express a commit or rollback application layer transaction in a data service, batch or cross-component operation.
 
-{% hint style="warning" %}
-The `Zongsoft.Transactions` namespace has been removed in the core class library; new code should use `Zongsoft.Data.Transaction` and `Zongsoft.Data.Transactions` instead.
-{% endhint %}
-
 ## Main Responsibilities
 
 * Maintain the ambient transaction in the current asynchronous context via `Transaction.Current`.

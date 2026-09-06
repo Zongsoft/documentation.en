@@ -10,7 +10,7 @@ The API project of Discussions is a Web class library, and the OutputType is Lib
 
 ## Build the Actual Project
 
-First build Core and Web in the sibling framework repository as described in [Your First Business Plugin](../../get-started/first-business-plugin.md), using the same configuration and target framework. See [Prerequisites](../../get-started/prerequisites.md) for the current dependency requirements.
+First build [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) and Web in the sibling framework repository as described in [Your First Business Plugin](../../get-started/first-business-plugin.md), using the same configuration and target framework. See [Prerequisites](../../get-started/prerequisites.md) to prepare the SDK and source directories.
 
 {% code title="Build the API from the discussions root directory" %}
 ```powershell
@@ -18,7 +18,7 @@ dotnet build src/api/Zongsoft.Discussions.Web.csproj -f net10.0 -p:ZongsoftFrame
 ```
 {% endcode %}
 
-This also builds the domain library. Local references do not build framework automatically. Once the required Core version is available from your NuGet source, you can omit the property and return to the default package-reference path.
+This also builds the domain library. Local references do not build framework automatically. If your NuGet source already provides the required versions of [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) and the other dependencies, you can omit the property and use the default package references.
 
 ## Web Manifest Dependency Domain Plugin
 
@@ -58,6 +58,6 @@ User archive templates are in templates. The project also enters the docs/http r
 
 ## Verify Path
 
-First confirm that the Discussions and Discussions.Web lists are loaded, and then confirm that Threads, Forums, Users and other controllers enter the application model. Then check the authentication, site, connection, mapping and external file configuration, and finally verify the query and business action.
+First confirm that the Discussions and [Discussions.Web](https://github.com/Zongsoft/discussions/tree/main/src/api) lists are loaded, and then confirm that Threads, Forums, Users and other controllers enter the application model. Then check the authentication, site, connection, mapping and external file configuration, and finally verify the query and business action.
 
 Public actions are based on the current routing of the controller. repository The early docs/api.md is a historical interface draft; singular paths therein should not be considered current executable examples without checking. See [Requests and Data Service APIs](data-services.md) for the specific code of subject review.

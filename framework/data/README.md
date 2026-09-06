@@ -7,7 +7,7 @@ icon: database
 
 ![Data Engine](../../.gitbook/assets/zongsoft-data-cover.png)
 
-`Zongsoft.Data` is an ORM data access framework with a GraphQL-like style. Data schemas, mapping files, condition expressions, and database drivers describe the structure of data access, supporting complex queries, navigation, filtering, paging, grouping, aggregation, and writes without hand-written SQL.
+[`Zongsoft.Data`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Data) is an ORM data access framework with a GraphQL-like style. Data schemas, mapping files, condition expressions, and database drivers describe the structure of data access, supporting complex queries, navigation, filtering, paging, grouping, aggregation, and writes without hand-written SQL.
 
 Its design separates data access into four stable layers instead of replacing SQL with another SQL-like string language:
 

@@ -14,7 +14,7 @@ Discussions organizes sites, forums, topics, posts, private messages, user profi
 
 | reading task | real entrance | Correspondence guide |
 | --- | --- | --- |
-| Understand how to assemble business modules | Module.cs、Zongsoft.Discussions.plugin | [Business plugin](get-started/first-business-plugin.md) |
+| Understand how to assemble business modules | Module.cs、[Zongsoft.Discussions.plugin](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.plugin) | [Business plugin](get-started/first-business-plugin.md) |
 | Query forum topics and paginate | ForumService.GetPinnedThreads | [Queries and Navigation](framework/data/querying.md) |
 | Create topics and maintain statistics | ThreadService.OnInsert | [Transactions and Consistency](framework/data/transactions.md) |
 | Vote and recount votes | PostService.Upvote、SetPostVotes | [Write Operations](framework/data/writing.md) |

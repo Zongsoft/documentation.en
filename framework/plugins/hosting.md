@@ -87,7 +87,7 @@ This means that ordinary services can be registered with code attributes and con
 
 ## Initialization and Lifecycle
 
-After the Host is built, `ApplicationContext` will be initialized. The application context will parse all `IApplicationInitializer` and perform initialization; when the Host lifecycle enters Started, Stopping, or Stopped, the application context will start or stop the registered worker and trigger the corresponding event.
+After the Host is built, `ApplicationContext` will be initialized. The application context will parse all [`IApplicationInitializer`](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) and perform initialization; when the Host lifecycle enters Started, Stopping, or Stopped, the application context will start or stop the registered [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) and trigger the corresponding event.
 
 The recommended boundaries for plugin-based applications are:
 
@@ -99,7 +99,7 @@ The recommended boundaries for plugin-based applications are:
 
 <summary>When should I change the host and when should I write a plugin?</summary>
 
-If the change affects process startup, site selection, host environment, service hosting method, or deployment entry, it is usually the responsibility of the host. If the changes are to business capabilities, database drivers, commands, Web APIs, background workers, or module internal services, plugins are given priority.
+If the change affects process startup, site selection, host environment, service hosting method, or deployment entry, it is usually the responsibility of the host. If the changes are to business capabilities, database drivers, commands, Web APIs, background [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs), or module internal services, plugins are given priority.
 
 </details>
 
@@ -113,4 +113,4 @@ The default plugin directory is composed of content root and `plugins`. The abso
 
 The assembly reference scan only processes the entry reference that has been loaded at that time, and then processes the entry assembly and the assembly declared in the loaded plugin manifest. Don't assume that every DLL you put in the directory will automatically participate in the service scan.
 
-The web application uses the matching `Zongsoft.Web.Application.Web(...)` entry and additionally completes the assembly of controllers, initializers and middleware, see [Web Fundamentals](../web.md).
+The web application uses the matching `Zongsoft.Web.Application.Web(...)` entry and additionally completes the assembly of controllers, [initializers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs) and middleware, see [Web Fundamentals](../web.md).

@@ -26,13 +26,13 @@ Zongsoft is a set of open source frameworks, hosts and toolchains for .NET appli
 Zongsoft is more suitable for business systems that require long-term evolution, clear module boundaries, and diverse deployment forms. For example:
 
 - Backend services combined with multiple business modules.
-- Web API applications that require functionality combined by site, environment, customer, or deployment scenario.
+- Large applications whose capabilities need to be composed by site, environment, customer, or deployment configuration.
 - A system that integrates common capabilities into plugins and reuse them across projects is needed.
--.NET applications that require deployment, installation packages, and automated upgrade processes.
+- .NET applications that require deployment, installation packages, and automated upgrade processes.
 
 ## Relationship to Common Frameworks
 
-Zongsoft, like ABP, is a system that favors complete application frameworks and toolchains, but its organizational focus is more toward "plugin-based applications runtime". When reading this document, you can first understand Zongsoft as:
+Zongsoft, like [ABP](https://abp.io), is a system that favors complete application frameworks and toolchains, but its organizational focus is more toward "plugin-based applications runtime". When reading this document, you can first understand Zongsoft as:
 
 1. A set of basic development abstractions.
 2. A model for plugin-based applications.

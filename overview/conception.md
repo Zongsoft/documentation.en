@@ -9,7 +9,7 @@ Zongsoft organizes capabilities around business applications that can be plugged
 
 ## Separation of Host and Business
 
-The host is responsible for startup, configuration, service container and lifecycle. Capabilities such as order processing, message subscription, and report output are provided by plugins. The same business service that does not rely on web requests can be called by terminal commands, background workers, or web controllers.
+The host is responsible for startup, configuration, service container and lifecycle. Capabilities such as order processing, message subscription, and report output are provided by plugins. The same business service that does not rely on web requests can be called by terminal commands, background [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs), or web controllers.
 
 This kind of reuse has a prerequisite: the business contract cannot be directly bound to the input and output methods of a certain host. Terminal prompts, HTTP status codes, and background task retry policies should stay in their respective adaptation layers, and business rules should be placed in shared services. See [Host Overview](../hosting/hosting.md).
 
@@ -17,7 +17,7 @@ This kind of reuse has a prerequisite: the business contract cannot be directly 
 
 Business code usually expresses "I want a cache" or "I want to publish a message", and the implementation selection is completed by service registration, provider and configuration. In this way, the deployment solution can select different capabilities for different environments without spreading the construction code of third-party SDKs in the business.
 
-Abstractions also have boundaries. Core retains common semantics across implementations; database dialects, message protocols, and cloud platform parameters are left to corresponding drivers or adapters. Just because an option appears on a public interface does not mean that every driver supports it. The corresponding implementation restrictions should be read before calling.
+Abstractions also have boundaries. [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) retains common semantics across implementations; database dialects, message protocols, and cloud platform parameters are left to corresponding drivers or adapters. Just because an option appears on a public interface does not mean that every driver supports it. The corresponding implementation restrictions should be read before calling.
 
 {% hint style="info" %}
 💡 Replacement needs to meet both "interface compatibility" and "business semantics compatibility". For example, successful message publishing may only mean that it has entered the client queue, and it cannot be inferred that the consumer has completed business processing.

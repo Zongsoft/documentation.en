@@ -11,11 +11,11 @@ This page is used to quickly find common NuGet packages, source code directories
 
 | package | source code directory | Purpose |
 | --- | --- | --- |
-| `Zongsoft.Core` | `framework/Zongsoft.Core` | Core abstraction and basic class library |
-| `Zongsoft.Plugins` | `framework/Zongsoft.Plugins` | plugin framework |
-| `Zongsoft.Plugins.Web` | `framework/Zongsoft.Plugins.Web` | Web plugin architecture support |
-| `Zongsoft.Data` | `framework/Zongsoft.Data` | data engine |
-| `Zongsoft.Web` | `framework/Zongsoft.Web` | Web basic capabilities |
+| [`Zongsoft.Core`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) | `framework/Zongsoft.Core` | Core abstraction and basic class library |
+| [`Zongsoft.Plugins`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Plugins) | `framework/Zongsoft.Plugins` | plugin framework |
+| [`Zongsoft.Plugins.Web`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Plugins.Web) | `framework/Zongsoft.Plugins.Web` | Web plugin architecture support |
+| [`Zongsoft.Data`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Data) | `framework/Zongsoft.Data` | data engine |
+| [`Zongsoft.Web`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Web) | `framework/Zongsoft.Web` | Web basic capabilities |
 | `Zongsoft.Security` | `framework/Zongsoft.Security` | security capability |
 | `Zongsoft.Diagnostics` | `framework/Zongsoft.Diagnostics` | diagnostic capabilities |
 

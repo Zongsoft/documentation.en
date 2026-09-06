@@ -5,7 +5,7 @@ icon: cube
 
 # Core Library
 
-`Zongsoft.Core` is the core class library of Zongsoft framework and does not rely on third-party class libraries. It provides basic abstractions, utility classes, service models, and runtime capabilities that are shared by other modules in the framework.
+[`Zongsoft.Core`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) is the core class library of Zongsoft framework and does not rely on third-party class libraries. It provides basic abstractions, utility classes, service models, and runtime capabilities that are shared by other modules in the framework.
 
 ## Main Abilities
 

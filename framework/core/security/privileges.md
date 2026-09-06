@@ -99,7 +99,7 @@ Source: [src/Zongsoft.Discussions.plugin](https://github.com/Zongsoft/Zongsoft.D
 ```
 {% endcode %}
 
-Discussions' UserChallenger appends the site identity and writes claims such as SiteId, avatar, rating, and post statistics. UserIdentity.Transformer only recognizes the Zongsoft.Discussions authentication scheme and converts these claims into business identities; business code reads them through UserIdentity.Current. For the complete source code and field meanings, see [security basics](../security.md).
+Discussions' UserChallenger appends the site identity and writes claims such as SiteId, avatar, rating, and post statistics. UserIdentity.Transformer only recognizes the [Zongsoft.Discussions](https://github.com/Zongsoft/discussions/tree/main/src) authentication scheme and converts these claims into business identities; business code reads them through UserIdentity.Current. For the complete source code and field meanings, see [security basics](../security.md).
 
 ## Authorization Record
 

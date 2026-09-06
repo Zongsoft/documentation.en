@@ -37,7 +37,7 @@ Source: [framework/upgrading/upgrader/Zongsoft.Upgrading.Upgrader.option](https:
 
 `.option` is currently included in the package and `Web` is selected by default. Don't judge deployment defaults solely by the `default="File"` example in the old README. See [Option Configuration Files](../../references/option-files.md) for the name and coverage rules of the application configuration file.
 
-The plugin registers the upgrader in the startup worker, and the default period is ten minutes; when the period is greater than or equal to five minutes, a check will be scheduled about ten seconds after startup. Therefore, before installing and starting the plugin, you should prepare the correct release source and shutdown strategy.
+The plugin registers the upgrader in the startup [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs), and the default period is ten minutes; when the period is greater than or equal to five minutes, a check will be scheduled about ten seconds after startup. Therefore, before installing and starting the plugin, you should prepare the correct release source and shutdown strategy.
 
 ## 3. Manage Packages and Release Status
 
@@ -102,6 +102,6 @@ The deployment account must have corresponding permissions, and the host type an
 
 Full deployment will clear the in-application logs, and log output or snapshots should be saved outside the application directory during upgrade acceptance. Finally, confirm the end of `.deployment` lifecycle, `.version` content and the health status of the new process at the same time.
 
-After failure, first save a copy of the description file, manifest, decompression directory and log to determine which stage it has stopped at. Do not directly delete all handover information in order to allow the worker to run again; if the file has been partially replaced, you should restore it to a consistent state based on the prepared recovery package and data backup, and then try again.
+After failure, first save a copy of the description file, manifest, decompression directory and log to determine which stage it has stopped at. Do not directly delete all handover information in order to allow the [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) to run again; if the file has been partially replaced, you should restore it to a consistent state based on the prepared recovery package and data backup, and then try again.
 
 Source references: [client](https://github.com/Zongsoft/framework/tree/main/upgrading/upgrader), [Deployment order](https://github.com/Zongsoft/framework/blob/main/upgrading/deployer/Deployer.Deploy.cs), [Web manager](https://github.com/Zongsoft/framework/tree/main/upgrading/web).

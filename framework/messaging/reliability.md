@@ -11,7 +11,7 @@ Reliable delivery requires answering "Who is responsible for the message now?" A
 
 Usually, complete business processing and record idempotency information before acknowledging a message. If the business transaction commits but the ACK is lost, the message can be delivered again, so store the deduplication record and business update in the same database transaction. For external payments, email, or other system calls, use the receiving system’s idempotency keys or a recoverable state workflow.
 
-Sending a message and writing to the business database can also succeed independently: one may succeed while the other fails. To ensure eventual publication after a business commit, an application can implement a transactional outbox. Save pending events in the business transaction, then let a background worker send them and record the results. This is an application design, not a capability automatically provided by installing a message-storage plugin.
+Sending a message and writing to the business database can also succeed independently: one may succeed while the other fails. To ensure eventual publication after a business commit, an application can implement a transactional outbox. Save pending events in the business transaction, then let a background [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) send them and record the results. This is an application design, not a capability automatically provided by installing a message-storage plugin.
 
 ## Key Differences Between Implementations
 
@@ -33,7 +33,7 @@ Sending a message and writing to the business database can also succeed independ
 
 The preparation sequence is as follows:
 
-1. Deploy the ZeroMQ Broker host, `Zongsoft.Data`, selected database driver, and `Zongsoft.Messaging.Storages.Data`.
+1. Deploy the ZeroMQ Broker host, [`Zongsoft.Data`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Data), selected database driver, and `Zongsoft.Messaging.Storages.Data`.
 2. Create `Messaging_Message` as [Table creation instructions for the corresponding database](https://github.com/Zongsoft/framework/tree/main/messaging/.storages/database); preserve the plugin's `.mapping` and `scripts` directories.
 3. Configure a data connection with **exactly the same name** as the broker. The daemon plugin creates a broker named `QueueServer`.
 4. Determine the stable storage identity before the process starts and inject the selected storage factory into the Broker.

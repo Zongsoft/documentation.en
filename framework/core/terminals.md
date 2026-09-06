@@ -95,7 +95,7 @@ Source: [framework/Zongsoft.Plugins/plugins/Terminal.plugin](https://github.com/
 ```
 {% endcode %}
 
-This method is suitable for turning plugin applications into interactive management consoles. After the application starts, the terminal workbench runs the executor; when the terminal exits, the workbench closes.
+This method is suitable for turning plugin applications into interactive management consoles. After the application starts, the terminal [workbench](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Plugins/src/IWorkbenchBase.cs) runs the executor; when the terminal exits, the workbench closes.
 
 ## Sub Namespace
 

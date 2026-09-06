@@ -27,10 +27,10 @@ public void OnFiltered(DataSelectContextBase context)
 ```
 {% endcode %}
 
-The results are not wrapped before querying because the underlying operations have not yet produced the final collection. After the query is wrapped in [FilteredResult](https://github.com/Zongsoft/Zongsoft.Discussions/blob/main/src/Data/FilteredResult.cs), processing still occurs during the enumeration phase. This thin adaptation layer satisfies both the non-generic collection requirements of the query context and the caller's generic asynchronous enumeration requirements, and forwards paging notifications; the actual enumeration, filtering, cancellation and release are handed over to Core's [Collection Extensions](../collections/extensions.md) and [Pageable](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Data/Pageable.cs).
+The results are not wrapped before querying because the underlying operations have not yet produced the final collection. After the query is wrapped in [FilteredResult](https://github.com/Zongsoft/Zongsoft.Discussions/blob/main/src/Data/FilteredResult.cs), processing still occurs during the enumeration phase. This thin adaptation layer satisfies both the non-generic collection requirements of the query context and the caller's generic asynchronous enumeration requirements, and forwards paging notifications; the actual enumeration, filtering, cancellation and release are handed over to [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core)'s [Collection Extensions](../collections/extensions.md) and [Pageable](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Data/Pageable.cs).
 
 {% hint style="warning" %}
-🚨 This implementation of Discussions requires the paging filtering fix in Core 7.59.0. Before this version is released, you need to use the local framework reference according to [Prerequisites](../../../get-started/prerequisites.md); the paging filtering of Core 7.58.0 will pass in the wrong current element, and compatibility cannot be determined by compilation alone.
+🚨 This implementation of Discussions requires the paging filtering fix in [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) 7.59.0. Before this version is released, you need to use the local framework reference according to [Prerequisites](../../../get-started/prerequisites.md); the paging filtering of Core 7.58.0 will pass in the wrong current element, and compatibility cannot be determined by compilation alone.
 {% endhint %}
 
 ## Process the Body Without Changing the Number of Records

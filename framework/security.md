@@ -5,7 +5,7 @@ icon: shield-halved
 
 # Security
 
-Zongsoft's security capabilities are divided into public contracts, default persistence implementations, and optional web interfaces. Core defines models such as identity, credentials, and permissions; Zongsoft.Security implements user, role, member, and permission services and saves them through the data engine; Web and Captcha plugins provide HTTP interfaces and human-computer challenges respectively.
+Zongsoft's security capabilities are divided into public contracts, default persistence implementations, and optional web interfaces. [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) defines models such as identity, credentials, and permissions; Zongsoft.Security implements user, role, member, and permission services and saves them through the data engine; Web and Captcha plugins provide HTTP interfaces and human-computer challenges respectively.
 
 ## Let’s First Distinguish Three Issues
 

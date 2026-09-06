@@ -5,7 +5,7 @@ icon: code-commit
 
 # Zongsoft.Versioning
 
-`Zongsoft.Versioning` provides the version representation model in Zongsoft.Core. It separates "semantic version used for publishing, display and compatibility judgment" and "numeric version number used for sorting, range query and persistence" to prevent the same type from taking on both textual semantics and integer encoding responsibilities at the same time.
+`Zongsoft.Versioning` provides the version representation model in [Zongsoft.Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core). It separates "semantic version used for publishing, display and compatibility judgment" and "numeric version number used for sorting, range query and persistence" to prevent the same type from taking on both textual semantics and integer encoding responsibilities at the same time.
 
 ## When to Use
 
@@ -13,7 +13,7 @@ icon: code-commit
 
 `Version.Number` represents a four-segment numerical version number, including four `ushort` fields: `Major`, `Minor`, `Patch`, and `Revision`. It is suitable for saving to databases, configuration items, or persistent fields that require stable ordering, and can also work with older integer version values.
 
-Discussions does not directly operate this version type; the following uses Core's VersionTest and VersionNumberTest to retain test input and output assertions. They validate version rules and do not represent the current Discussions package version.
+Discussions does not directly operate this version type; the following uses [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core)'s VersionTest and VersionNumberTest to retain test input and output assertions. They validate version rules and do not represent the current Discussions package version.
 
 ## Semantic Version
 

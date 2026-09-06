@@ -9,7 +9,7 @@ For the first query, use Discussions which already has a forum interface. The pr
 
 ## 1. Check the Real Data Contract
 
-Also read the selected database script under Models/Forum.cs, Zongsoft.Discussions.mapping and database in Discussions. Forum uses SiteId and ForumId composite keys; external serial numbers require corresponding services; Message also has ClickHouse driver tags. These constraints cannot be solved by simply modifying the database connection string.
+Also read the selected database script under Models/Forum.cs, [Zongsoft.Discussions.mapping](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.mapping) and database in Discussions. Forum uses SiteId and ForumId composite keys; external serial numbers require corresponding services; Message also has ClickHouse driver tags. These constraints cannot be solved by simply modifying the database connection string.
 
 Database scripts may rebuild objects and should be reviewed first and executed only on temporary databases. The mapping file does not automatically create these tables.
 

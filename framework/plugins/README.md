@@ -7,7 +7,7 @@ icon: puzzle-piece
 
 ![Plugin Framework](../../.gitbook/assets/zongsoft-plugins-cover.png)
 
-`Zongsoft.Plugins` is the core library for Zongsoft plugin-based applications. It divides an application into plugin modules that can be deployed independently, declare dependencies, and attach capabilities to extension points. Terminal programs, background services, Web applications, and rich clients share the same extension model.
+[`Zongsoft.Plugins`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Plugins) is the core library for Zongsoft plugin-based applications. It divides an application into plugin modules that can be deployed independently, declare dependencies, and attach capabilities to extension points. Terminal programs, background services, Web applications, and rich clients share the same extension model.
 
 ## Core Concepts
 
@@ -15,8 +15,8 @@ icon: puzzle-piece
 * Plugin directory: By default, the host scans the `plugins/` directory under the application directory at startup.
 * Plugin tree: Extension points are organized into a tree of paths, such as `/Workbench/Data/Drivers`.
 * Builtin: A buildable object on the plugin tree, created or exposed by builders such as `object`, `lazy`, and `expose`.
-* Application context: The runtime context representing the application, environment, modules, services, events, and workers.
-* Application module: A business or infrastructure boundary explicitly defined and mounted by the application. It can have its own service domain and event registry; modules do not automatically correspond one-to-one with plugins.
+* Application context: The runtime context representing the application, environment, modules, services, events, and [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs).
+* [Application module](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationModule.cs): A business or infrastructure boundary explicitly defined and mounted by the application. It can have its own service domain and event registry; modules do not automatically correspond one-to-one with plugins.
 
 ## Relationship with Host
 
@@ -45,7 +45,7 @@ The default foundational plugins mount nodes such as `/Workbench`, `/Workbench/C
 
 {% tabs %}
 {% tab title="application developer" %}
-Focus on the capabilities a plugin provides: services, commands, Web APIs, background workers, data drivers, or business modules. Understanding the plugin directory and deployed artifacts is usually sufficient.
+Focus on the capabilities a plugin provides: services, commands, Web APIs, background [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs), data drivers, or business modules. Understanding the plugin directory and deployed artifacts is usually sufficient.
 {% endtab %}
 
 {% tab title="Plugin author" %}

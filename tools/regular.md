@@ -23,7 +23,7 @@ Then run the Windows executable file from the corresponding output directory. Th
 
 Put the test text in the input area, fill in the regular expression in the expression area, and observe the result tree after matching. A match represents an overall hit, a group represents a named or numbered subpart of an expression, and a capture represents the results of a repeated grouping in a match.
 
-Discussions There is no independent regular debugging example. You can use Core's TextRegular.Web.Email to define observation named groups. Here's an excerpt of the actual rules; when copied into the tool's expression box, only the contents of the C# verbatim string are taken, without @, quotes, or field declarations.
+Discussions There is no independent regular debugging example. You can use [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core)'s TextRegular.Web.Email to define observation named groups. Here's an excerpt of the actual rules; when copied into the tool's expression box, only the contents of the C# verbatim string are taken, without @, quotes, or field declarations.
 
 Source: [framework/Zongsoft.Core/src/Text/TextRegular.cs](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Text/TextRegular.cs#L115) (excerpt; see source for context).
 

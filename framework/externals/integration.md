@@ -13,7 +13,7 @@ OPC UA organizes device data in server address space. **NodeId** identifies the 
 
 **Session**is a session interacting with the server;**Subscription** and monitoring items are used to continuously receive changes. Subscriptions are not permanently valid objects, and their recovery status needs to be verified after disconnection and reconnection, server restart, and certificate changes.
 
-`Zongsoft.Externals.Opc` provides related client, server and read-write subscription adaptations. Plugins make the assembly and SDK available, and the actual endpoints, certificate trusts, session establishment, and worker lifecycle are organized by the application.
+`Zongsoft.Externals.Opc` provides related client, server and read-write subscription adaptations. Plugins make the assembly and SDK available, and the actual endpoints, certificate trusts, session establishment, and [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) lifecycle are organized by the application.
 
 ## Start with a Local Example
 

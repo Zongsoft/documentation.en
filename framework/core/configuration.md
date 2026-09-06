@@ -191,7 +191,7 @@ nuget:Zongsoft.Data
 ```
 {% endcode %}
 
-It will get the plugins/zongsoft/data three-level section, and nuget:Zongsoft.Data is an entry with no value under this section. Profile is only responsible for parsing this structure, NuGet location, replication and version selection are interpreted by the deployment tool.
+It will get the plugins/zongsoft/data three-level section, and nuget:[Zongsoft.Data](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Data) is an entry with no value under this section. Profile is only responsible for parsing this structure, NuGet location, replication and version selection are interpreted by the deployment tool.
 
 Discussions' in-package manifest uses relative artifact paths and Framework variables:
 

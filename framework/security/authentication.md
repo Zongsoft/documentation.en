@@ -69,7 +69,7 @@ public static UserIdentity Current => ClaimsIdentityModeling.GetModel<UserIdenti
 ```
 {% endcode %}
 
-The scheme is Zongsoft.Discussions. The current model is available only when an identity for that scheme has been created and its transformer registered. An ordinary ClaimsPrincipal or anonymous request does not automatically include this identity.
+The scheme is [Zongsoft.Discussions](https://github.com/Zongsoft/discussions/tree/main/src). The current model is available only when an identity for that scheme has been created and its transformer registered. An ordinary ClaimsPrincipal or anonymous request does not automatically include this identity.
 
 ## Site Scope and Resource Permissions
 

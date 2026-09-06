@@ -20,7 +20,7 @@ flowchart BT
 	Host["Terminal/Backend/Web Host"] --> Plugins
 ```
 
-The arrows show the main dependency direction, with some project references omitted. This differs from runtime call order: business code can use a Redis cache at runtime while referencing only the Core caching contract at compile time. [Deployment](deployment.md) and [Service Resolution](../framework/core/services.md) connect the contract to its implementation.
+The arrows show the main dependency direction, with some project references omitted. This differs from runtime call order: business code can use a Redis cache at runtime while referencing only the [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) caching contract at compile time. [Deployment](deployment.md) and [Service Resolution](../framework/core/services.md) connect the contract to its implementation.
 
 ### Core: a Stable Common Language
 
@@ -32,7 +32,7 @@ This does not mean that all capabilities have exactly the same semantics. For ex
 
 [Plugin Framework](../framework/plugins/README.md) reads the plugin manifest, resolves dependencies, organizes [plugin tree](concepts.md#plugin-tree), loads the declared assembly and registers the service. Builtins on the plugin tree can be created by builders or expose existing instances.
 
-File directories organize deployment files and plugin parent-child relationships; extension paths such as `/Workbench/Modules` organize runtime objects. The two levels serve file deployment and object assembly respectively, and the ownership of the service container cannot be inferred based on the directory name.
+File directories organize deployment files and plugin parent-child relationships; extension paths such as `/Workbench/Modules` organize runtime objects. The two levels serve file deployment and object composition respectively; they are entirely different organizational structures.
 
 ### Function Libraries and Adapters: Realizing Replaceable Capabilities
 
@@ -54,7 +54,7 @@ flowchart LR
 	Workbench --> Invoke["Commands/API/Background workers"]
 ```
 
-1. **Compilation** checks that code can call the target API. Debug references in the framework source may also depend on local Core build output.
+1. **Compilation** checks that code can call the target API. Debug references in the framework source may also depend on local [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) build output.
 2. **Deployment** copies manifests, assemblies, options, mappings, and supporting resources into a complete runtime directory.
 3. **Startup** establishes the content root, configuration, and container, loads plugins, and initializes the application.
 4. **Invocation** triggers the creation of some lazy services, drivers, and external connections.
@@ -65,7 +65,7 @@ flowchart LR
 
 ## Who Manages the Lifecycle?
 
-The application context connects the start and stop of the host, and the workbench hosts the components that need to be run. Ordinary services and startable workers have different responsibilities: services provide operations; workers are responsible for continuous running, cancellation and closing. The constructor should try to only establish the object state and avoid putting uncontrollable external work into the assembly phase.
+The application context connects the start and stop of the host, and the [workbench](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Plugins/src/IWorkbenchBase.cs) hosts the components that need to be run. Ordinary services and startable [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) have different responsibilities: services provide operations; workers are responsible for continuous running, cancellation and closing. The constructor should try to only establish the object state and avoid putting uncontrollable external work into the assembly phase.
 
 The module service container provides name scope and fallback rules that are not scoped per HTTP request. Shared services cannot save mutable state that is exclusive to a request, and the caller should not release shared instances obtained from the container at will. See [Modules, services and providers](concepts.md#module-service-provider) for details.
 

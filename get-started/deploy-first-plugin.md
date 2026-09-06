@@ -23,7 +23,7 @@ nuget:Zongsoft.Discussions.Web@0.8.0
 
 ## 2. Distinguish Between Host Publishing and Business Construction
 
-The hosting project is located at hosting/web/default, and the entry point is Zongsoft.Hosting.Web.dll. By default, Core, Web, Plugins, and Plugins.Web are referenced from the sibling framework output, so the same target framework and configuration of these projects must be built before publishing. The command is executed from hosting/web/default:
+The hosting project is located at hosting/web/default, and the entry point is Zongsoft.Hosting.Web.dll. By default, [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core), Web, Plugins, and Plugins.Web are referenced from the sibling framework output, so the same target framework and configuration of these projects must be built before publishing. The command is executed from hosting/web/default:
 
 {% code title="Publish a real web host" %}
 ```powershell

@@ -17,7 +17,7 @@ Source: [src/Zongsoft.Discussions.mapping](https://github.com/Zongsoft/Zongsoft.
 ```
 {% endcode %}
 
-# Sequence Generators
+`#` denotes an external sequence. When a business insert method is called, the identifier may not have been generated yet, so a default identifier cannot provide a unique name for a new file. The current content filenames also include a random suffix; see [Randomizer](randomizer.md).
 
 ## The Forum Is Divided Into Domains by Site
 

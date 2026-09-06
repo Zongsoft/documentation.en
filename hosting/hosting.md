@@ -12,7 +12,7 @@ The host provides process entry, configuration, service container, logs and star
 | Type | main entrance | Suitable for the scene | read |
 | --- | --- | --- | --- |
 | Terminal | Interactive commands | Development and debugging, manual diagnostics, and reproduction of background behavior | [Terminal Host](terminal.md) |
-| Daemon | long term worker | Consume messages, execute jobs, and system services | [Background Service Host](daemon.md) |
+| Daemon | long term [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) | Consume messages, execute jobs, and system services | [Background Service Host](daemon.md) |
 | Web | HTTP pipeline | Controller, interface, gateway | [Web Host](web.md) |
 
 The terminal can simulate background business, but the web controller and middleware still require a web host; plugins that use terminal input should not be started unconditionally in non-interactive services.
@@ -48,7 +48,7 @@ The working directory, application directory and content root path should also b
 
 First confirm that the process is started correctly, then check plugin loading, builtin and service registration, and finally verify the business call. Some providers delay establishing a connection until first access, exposing endpoint, permissions, or DLL version errors.
 
-When stopping, the host notifies the worker to stop and release the resources it owns. Business workers should stop receiving new tasks, pass cancellations, and wait for necessary in-flight operations; they should not rely on force exit to replace normal lifecycle design.
+When stopping, the host notifies the [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) to stop and release the resources it owns. Business workers should stop receiving new tasks, pass cancellations, and wait for necessary in-flight operations; they should not rely on force exit to replace normal lifecycle design.
 
 Next step: [Deploy a Host](deployment.md), [Container Environments](containerization.md), [Plugin hosting integration](../framework/plugins/hosting.md).
 

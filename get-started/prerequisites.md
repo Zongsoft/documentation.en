@@ -17,6 +17,15 @@ Learning plugin usage allows you to get the framework directly from NuGet withou
 | Debugging frameworks and existing hosts | Git, framework/hosting source code, matching compilation output | [Host Overview](../hosting/hosting.md) |
 | Connect to a database or messaging system | Previous content and selected external services | Corresponding driver and connection topics |
 
+## Development Guidelines
+
+Before writing business plugins or Web APIs, developers should read and follow these guidelines:
+
+- [C# Coding Guidelines](https://github.com/Zongsoft/Guidelines/blob/main/zongsoft.csharp.guidelines.md) (in Chinese): follow consistent naming, formatting, and coding conventions when writing and reviewing C# code.
+- [REST API Design Guidelines](https://github.com/Zongsoft/Guidelines/blob/main/zongsoft.rest-api.guidelines.md) (in Chinese): follow the conventions for resource names, HTTP methods, status codes, and parameters when designing and implementing HTTP APIs.
+
+Use the latest versions at these links. Read examples alongside the guidelines, and check compliance during development and code review.
+
 ## SDK Version
 
 The current root configuration of the hosting repository targets .NET 10; this documentation’s minimal tutorial also uses `net10.0`. Multiple framework class libraries support .NET 8, 9, and 10, but specific projects, examples, and tools need to be based on their own `.csproj`, `Directory.Build.props`, and package dependencies.
@@ -59,10 +68,6 @@ git -C framework submodule update --init --recursive
 The framework's OpenTelemetry protocol source uses submodules; corresponding content is required when building related diagnostics projects. By default, hosting refers to the adjacent output of the framework. The existence of the source code directory is not enough. The corresponding configuration and target of the required class library must be compiled first.
 
 ## Tools and Optional Environments
-
-{% hint style="warning" %}
-🚨 Current Discussions require a paging filter fix for Core 7.59.0. As of 2026-09-06, this version has not been released to NuGet; first build the Core and Web of the adjacent framework, and then use `-p:ZongsoftFrameworkPathReferenced=true` to build Discussions. The corresponding configuration and target framework must be consistent. See [Discussions Local build instructions](https://github.com/Zongsoft/Zongsoft.Discussions/blob/main/README.zh-Hans.md#本地构建与回归) for the complete command. Before the release, the default NuGet restore does not satisfy this dependency and should not be downgraded back to 7.58.0.
-{% endhint %}
 
 See [Install Packages](install.md) for installation steps. The editor can use an IDE that supports .NET. Shell commands should be executed according to the respective syntax of PowerShell or Bash. Line continuation and variable interpolation cannot be mixed.
 

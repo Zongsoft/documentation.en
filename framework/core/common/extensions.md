@@ -46,7 +46,7 @@ public void TestSlice()
 ```
 {% endcode %}
 
-The above directly quotes Core's sharding test, covering whitespace, continuous separators, and stateful separation judgments. The actual input and assertions of RemoveAny, Trim, and IsDigits are also in the same file. `Slice` ignores whitespace fragments and is suitable for parsing simple delimited text.
+The above directly quotes [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core)'s sharding test, covering whitespace, continuous separators, and stateful separation judgments. The actual input and assertions of RemoveAny, Trim, and IsDigits are also in the same file. `Slice` ignores whitespace fragments and is suitable for parsing simple delimited text.
 
 ## Time Expansion
 

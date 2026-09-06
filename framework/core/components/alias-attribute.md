@@ -34,7 +34,7 @@ public enum Gender : byte
 ```
 {% endcode %}
 
-Discussions does not declare AliasAttribute directly; this refers to the Gender enumeration in the Core test model. F and M are the aliases of the enumeration members. When reading, GetAliases should be called on the corresponding members, instead of reading the enumeration type and assuming that the aliases of all members can be obtained. This test enum is of a different type than Discussions.Models.Gender.
+Discussions does not declare AliasAttribute directly; this refers to the Gender enumeration in the [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) test model. F and M are the aliases of the enumeration members. When reading, GetAliases should be called on the corresponding members, instead of reading the enumeration type and assuming that the aliases of all members can be obtained. This test enum is of a different type than Discussions.Models.Gender.
 
 ## Usage Suggestions
 

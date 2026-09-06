@@ -50,7 +50,7 @@ In the terminal, first execute `help` to view the actual command tree, `plugin.l
 
 When attaching the debugger, the running DLL, PDB, and source code versions should match; after modifying the source code, it only rebuilds but does not copy the output, and breakpoints may still correspond to the old implementation. Stop the host before manually replacing files, and keep the target directory and deployment version records.
 
-To exit, use `exit -yes`. If it stops slowly, check whether the worker is still waiting for external requests, message processing, or unresponsive cancellation. Do not change all background tasks to force exit first.
+To exit, use `exit -yes`. If it stops slowly, check whether the [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) is still waiting for external requests, message processing, or unresponsive cancellation. Do not change all background tasks to force exit first.
 
 The auto-upgrade test must match the release with the actual application name `zongsoft.terminal` and check that `.deployer` is still in the deployment directory. See [upgrade integration](../framework/upgrading/workflow.md) for details.
 

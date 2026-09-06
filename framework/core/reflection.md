@@ -35,7 +35,7 @@ Reflective access itself should not replace ordinary strongly typed code: when m
 
 ## Member Access
 
-Discussions does not call Reflector directly; it uses these mechanisms indirectly through mapping and configuration. This page reads API shapes from Core's existing tests, where MyValue and ClassEntity are test fixture types.
+Discussions does not call Reflector directly; it uses these mechanisms indirectly through mapping and configuration. This page reads API shapes from [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core)'s existing tests, where MyValue and ClassEntity are test fixture types.
 
 `Reflector` is the most commonly used entry. It can either receive the already parsed System.Reflection.MemberInfo, or it can directly find the public fields or properties of the object by member name.
 

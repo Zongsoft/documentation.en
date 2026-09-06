@@ -29,7 +29,7 @@ Plugin architecture solves the organizational problems of large business systems
 - Business modules can be released independently.
 - Running the host can remain lightweight and stable.
 - Different environments can combine different plugins through deployment files.
-- Business plugins that do not rely on specific interactions or protocols can be reused in different hosting forms; controllers and middleware still require a web host.
+- Business plugins that do not depend on a particular interaction model or protocol can be reused across host types. Controllers and ASP.NET middleware, however, must run within a Web host.
 - Configurations, mappings, and resources can be deployed with the plugin.
 
 ## Document Reading Suggestions
@@ -40,6 +40,6 @@ Read [Plugin Framework](../framework/plugins/README.md) first to understand the 
 
 One plugin provides a service or collection mount point, and another plugin declares dependencies and contributes implementations. Dependencies not only determine assembly visibility, but also describe "which components are required before they can work." Extension paths, service names, and configuration keys should be maintained like public APIs, with consumers synchronized when changed.
 
-Plugin architecture does not equal arbitrary hot replacement, nor does it equal process-level isolation. Components loaded into the same host share process resources, and version conflicts or incorrect workers can affect the entire application. When independent fault boundaries are required, independent processes and communication protocols should be considered.
+Plugin architecture does not equal arbitrary hot replacement, nor does it equal process-level isolation. Components loaded into the same host share process resources, and version conflicts or incorrect [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) can affect the entire application. When independent fault boundaries are required, independent processes and communication protocols should be considered.
 
 See [basic concepts](concepts.md) for background terminology and [The first business plugin](../get-started/first-business-plugin.md) for the complete combination path.

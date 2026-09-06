@@ -5,7 +5,7 @@ icon: stethoscope
 
 # Diagnostics
 
-Zongsoft.Diagnostics connects Core diagnostics options to the actual exporter. Discussions does not independently define diagnostics solutions, which are selected and deployed by the host when used; this page uses the framework package configuration as a reference.
+Zongsoft.Diagnostics connects [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) diagnostics options to the actual exporter. Discussions does not independently define diagnostics solutions, which are selected and deployed by the host when used; this page uses the framework package configuration as a reference.
 
 ## Indicator Export Configuration
 

@@ -39,7 +39,7 @@ This content should be merged into the existing host's deployment manifest. See 
 
 ## Three Common Integration Forms
 
-**service provider**supplies cache, lock and other instances by connection name;**Matchable services**finds evaluators and archivers by name or format;**plugin tree builtin** mounts the file system, worker and handler collections through extended paths. They are both plugin extensions, but they are obtained in different ways.
+**service provider**supplies cache, lock and other instances by connection name;**Matchable services**finds evaluators and archivers by name or format;**plugin tree builtin** mounts the file system, [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) and handler collections through extended paths. They are both plugin extensions, but they are obtained in different ways.
 
 Don't see a type in the package and infer that it must be registered in the container; don't apply Redis's alias rules to other providers. See [Service Resolution and Ownership](core/services/locating.md) for detailed differences.
 

@@ -9,7 +9,7 @@ icon: message
 
 Zongsoft's message queue system consists of the [Zongsoft.Messaging](core/messaging.md) core abstraction and four specific plugins. The core abstraction is responsible for unifying production, subscription, message confirmation and queue discovery; the plugin is responsible for implementing these abstractions into specific messaging systems.
 
-Please read [Publish/Subscribe and Delivery Concepts](messaging/concepts.md) first when using it for the first time, and continue reading [Reliable Delivery and Message Storage](messaging/reliability.md) when you need to recover from a fault. This page explains the design differences, configuration methods, usage examples and precautions of the four implementations. Business code usually only needs to rely on the message abstraction of `Zongsoft.Core`; application startup, deployment and connection parameters only need to care about specific plugins.
+Please read [Publish/Subscribe and Delivery Concepts](messaging/concepts.md) first when using it for the first time, and continue reading [Reliable Delivery and Message Storage](messaging/reliability.md) when you need to recover from a fault. This page explains the design differences, configuration methods, usage examples and precautions of the four implementations. Business code usually only needs to rely on the message abstraction of [`Zongsoft.Core`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core); application startup, deployment and connection parameters only need to care about specific plugins.
 
 ## Browse by Project
 

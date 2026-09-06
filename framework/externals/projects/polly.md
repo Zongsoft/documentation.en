@@ -5,7 +5,7 @@ icon: plug
 
 # Polly
 
-Use retries, timeouts, circuit breaking, rate limiting and fallback integration Core execution pipeline to handle temporary failures encountered in an operation.
+Use retries, timeouts, circuit breaking, rate limiting and fallback integration [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) execution pipeline to handle temporary failures encountered in an operation.
 
 | Item | value |
 | --- | --- |
@@ -24,7 +24,7 @@ nuget:Zongsoft.Externals.Polly
 ```
 {% endcode %}
 
-The pipeline builder is bound to the executor through the plugin tree, and the strategy is expressed using the corresponding features of Core. Strategies and their sequence of combinations should be decided for specific operations.
+The pipeline builder is bound to the executor through the plugin tree, and the strategy is expressed using the corresponding features of [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core). Strategies and their sequence of combinations should be decided for specific operations.
 
 ## Integration Steps
 

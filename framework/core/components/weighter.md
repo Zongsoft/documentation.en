@@ -92,7 +92,7 @@ Candidates can be dynamically adjusted via `Add(...)`, `Remove(...)` and `Clear(
 
 ## Related Implementation
 
-The data source selector of `Zongsoft.Data` will maintain `Weighter<T>` for readable and writable data sources respectively, and select the read library or write library according to the data access method. This scenario reflects the typical boundaries of `Weighter<T>`: it is only responsible for selecting by weight among the filtered candidate set, and the downstream data access context, command variability, and data source mode are still judged by the data framework.
+The data source selector of [`Zongsoft.Data`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Data) will maintain `Weighter<T>` for readable and writable data sources respectively, and select the read library or write library according to the data access method. This scenario reflects the typical boundaries of `Weighter<T>`: it is only responsible for selecting by weight among the filtered candidate set, and the downstream data access context, command variability, and data source mode are still judged by the data framework.
 
 ## Reference
 

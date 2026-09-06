@@ -13,7 +13,7 @@ Caching, sequence numbers, and locks may all use key-value stores, but for diffe
 | --- | --- | --- |
 | Redis | Caching, sequence numbers, locks, message flow, configuration and message storage | Registered `Redis` provider and related plugin tree nodes |
 | etcd | Basic KV, serial number, lease lock | Serial number/lock provider; not a public distributed cache implementation |
-| Garnet | Redis protocol server started with the host | Worker and server settings; clients still need corresponding adapters |
+| Garnet | Redis protocol server started with the host | [Worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) and server settings; clients still need corresponding adapters |
 
 ## Redis Cache Closed Loop
 
@@ -65,7 +65,7 @@ Both Redis and etcd locks need to understand **lease**and**fencing token**: the 
 
 ## Garnet Server
 
-`Zongsoft.Externals.Garnet` hosts Garnet servers via workers. The configuration path is `/Externals/Garnet`, and `value` named `server` is converted to a server option. Plugin worker startup may open listening ports, so the address, authentication, and persistence directories should be explicitly bound before enabling.
+`Zongsoft.Externals.Garnet` hosts Garnet servers via [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs). The configuration path is `/Externals/Garnet`, and `value` named `server` is converted to a server option. Plugin worker startup may open listening ports, so the address, authentication, and persistence directories should be explicitly bound before enabling.
 
 Relative directories usually resolve from the adapter assembly location, `~/` resolves from the application root directory. When AOF or checkpointing is enabled, stop, restart, and recovery should be tested; the in-process server shares resources and failure boundaries with the host. Redis protocol compatibility does not mean that all Redis commands and persistence behavior are the same.
 

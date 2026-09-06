@@ -79,7 +79,7 @@ protected virtual ValueTask<UserProfile> GetUserAsync(uint userId, CancellationT
 ```
 {% endcode %}
 
-This is the query during the authentication challenge phase, where the cancellation token is passed along the call chain. Paging.Limit(1) limits the amount of reading, and FirstOrDefault consumes an asynchronous sequence. Core's [Collection Extensions](../core/collections/extensions.md) is used here. After introducing `Zongsoft.Collections`, `.FirstOrDefault(cancellation)` can be called; it handles the empty sequence and releases the enumerator, without writing another first element auxiliary method in the business project. Do not regard this identity initialization path as an open user search interface.
+This is the query during the authentication challenge phase, where the cancellation token is passed along the call chain. Paging.Limit(1) limits the amount of reading, and FirstOrDefault consumes an asynchronous sequence. [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core)'s [Collection Extensions](../core/collections/extensions.md) is used here. After introducing `Zongsoft.Collections`, `.FirstOrDefault(cancellation)` can be called; it handles the empty sequence and releases the enumerator, without writing another first element auxiliary method in the business project. Do not regard this identity initialization path as an open user search interface.
 
 ## Restore Voting Statistics with Counts
 

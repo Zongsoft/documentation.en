@@ -19,7 +19,7 @@ Check whether the file matches the application name or plugin manifest base name
 
 ## Can the Host Portal Write Business Directly?
 
-Application composition and startup configuration are the responsibility of the host. Business rules are recommended to be placed in plugin services and then called by commands, workers or controllers. This makes it easier to reuse and verify between [Terminal and Web](hosting/hosting.md).
+Application composition and startup configuration are the responsibility of the host. Business rules are recommended to be placed in plugin services and then called by commands, [workers](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) or controllers. This makes it easier to reuse and verify between [Terminal and Web](hosting/hosting.md).
 
 ## Why Are the Results Different for `Resolve`, `Find`, and `Locate`?
 

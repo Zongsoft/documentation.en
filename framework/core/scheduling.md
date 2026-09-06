@@ -5,7 +5,7 @@ icon: calendar
 
 # Zongsoft.Scheduling
 
-Scheduling separates "when to execute" from "what to execute". Core provides a public contract for scheduling, and the specific implementation determines delay, cycle, persistence, and failure handling methods. Discussions There is no ready-made scheduling business. This page follows the MyHandler example of the framework.
+Scheduling separates "when to execute" from "what to execute". [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) provides a public contract for scheduling, and the specific implementation determines delay, cycle, persistence, and failure handling methods. Discussions There is no ready-made scheduling business. This page follows the MyHandler example of the framework.
 
 ## Start with Handler
 
@@ -56,7 +56,7 @@ Scheduled jobs are associated with handlers by stable names. When renaming types
 | persistent job | Storage availability, restart recovery, parameter compatibility |
 | Multiple instance execution | Allocation mechanism, repetitive execution and idempotent |
 
-Specific capabilities are subject to implementation. See [Project description](../externals/projects/hangfire.md) for Hangfire integration and storage plugins. The Core contract cannot be understood as automatically having all persistence capabilities.
+Specific capabilities are subject to implementation. See [Project description](../externals/projects/hangfire.md) for Hangfire integration and storage plugins. The [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) contract cannot be understood as automatically having all persistence capabilities.
 
 ## Verify and Stop
 

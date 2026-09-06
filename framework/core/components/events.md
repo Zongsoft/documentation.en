@@ -6,7 +6,7 @@ icon: bolt
 # Events
 
 
-Module events provide explicit event entry for business components. The Discussions Module inherits the ApplicationModule with event registry type parameters and exposes Events in the plugin tree.
+Module events provide explicit event entry for business components. The Discussions Module inherits the [ApplicationModule](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/ApplicationModule.cs) with event registry type parameters and exposes Events in the plugin tree.
 
 Source: [src/Module.cs](https://github.com/Zongsoft/Zongsoft.Discussions/blob/main/src/Module.cs#L56) (excerpt; see source for context).
 

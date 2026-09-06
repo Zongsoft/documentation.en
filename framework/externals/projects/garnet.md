@@ -5,7 +5,7 @@ icon: plug
 
 # Garnet
 
-Run a Garnet server that supports the Redis protocol through a host worker. The project assumes server hosting responsibilities, and business clients still need corresponding access adapters.
+Run a Garnet server that supports the Redis protocol through a host [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs). The project assumes server hosting responsibilities, and business clients still need corresponding access adapters.
 
 | Item | value |
 | --- | --- |
@@ -24,11 +24,11 @@ nuget:Zongsoft.Externals.Garnet
 ```
 {% endcode %}
 
-The setting is at `/Externals/Garnet`, and the value of the named server is converted to a server option. Starting the worker will use the corresponding port and storage directory.
+The setting is at `/Externals/Garnet`, and the value of the named server is converted to a server option. Starting the [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) will use the corresponding port and storage directory.
 
 ## Integration Steps
 
-1. Enable worker after explicitly binding address, port, authentication and persistence directory.
+1. Enable [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) after explicitly binding address, port, authentication and persistence directory.
 2. Use the selected client to verify the commands and data types your app actually relies on.
 3. If AOF or checkpointing is enabled, verify stops, restarts, and data recovery.
 

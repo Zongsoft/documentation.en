@@ -64,7 +64,7 @@ The Windows directory provides `install.cmd` and `uninstall.cmd`; the Linux inst
 
 ## Common Faults
 
-When starting and exiting, check entry, runtime, assembly and configuration loading errors. When the process is alive but not working, check whether the worker is mounted, whether the startup fails, and whether the message subscription or job storage is normal. Only when there is an error in the service environment, focus on comparing the working directory, account and environment configuration.
+When starting and exiting, check entry, runtime, assembly and configuration loading errors. When the process is alive but not working, check whether the [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs) is mounted, whether the startup fails, and whether the message subscription or job storage is normal. Only when there is an error in the service environment, focus on comparing the working directory, account and environment configuration.
 
 Logs and persistent data should have independent paths and permissions. Especially when using [Full upgrade](../framework/upgrading.md), in-application data cannot be regarded as retained content by default.
 

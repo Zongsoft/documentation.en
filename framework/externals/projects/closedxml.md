@@ -24,7 +24,7 @@ nuget:Zongsoft.Externals.ClosedXml
 ```
 {% endcode %}
 
-Match services in `Spreadsheet` format via Core's archive or template contract. The actual data service first provides its own descriptor, allowing the primary key, length and semantics in the mapping to enter the archiving process.
+Match services in `Spreadsheet` format via [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core)'s archive or template contract. The actual data service first provides its own descriptor, allowing the primary key, length and semantics in the mapping to enter the archiving process.
 
 ## Integration Steps
 

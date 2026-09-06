@@ -15,7 +15,7 @@ The documentation covers:
 {% column %}
 ### Framework
 
-Core abstractions, the plugin framework, the data engine, Web fundamentals, security, diagnostics, messaging, automatic upgrades, and adapters for common third-party services.
+[Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) abstractions, the plugin framework, the data engine, Web fundamentals, security, diagnostics, messaging, automatic upgrades, and adapters for common third-party services.
 {% endcolumn %}
 
 {% column %}

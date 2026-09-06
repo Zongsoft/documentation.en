@@ -5,7 +5,7 @@ icon: database
 
 # Zongsoft.Data
 
-`Zongsoft.Data` defines the basic abstraction of data access, data service model, conditions, operand, mode, paging, sorting, transactions, data dictionary and data metadata in the core class library. The complete data engine implementation is continued to be extended by the `Zongsoft.Data` module.
+[`Zongsoft.Data`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Data) defines the basic abstraction of data access, data service model, conditions, operand, mode, paging, sorting, transactions, data dictionary and data metadata in the core class library. The complete data engine implementation is continued to be extended by the `Zongsoft.Data` module.
 
 ## Main Responsibilities
 

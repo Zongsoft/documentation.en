@@ -117,7 +117,7 @@ private static void Cache_Evicted(object sender, CacheEvictedEventArgs e)
 ```
 {% endcode %}
 
-This output comes from Core's memorycache interaction sample, Now is a time text attribute of the same type, and e comes from the cache eviction event. `context.Output` is usually used first in commands, so that the same command can be output in the terminal and reused by other command executors. Only use `Terminal.WriteLine(...)` directly when you are sure that the output target is the current default terminal.
+This output comes from [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core)'s memorycache interaction sample, Now is a time text attribute of the same type, and e comes from the cache eviction event. `context.Output` is usually used first in commands, so that the same command can be output in the terminal and reused by other command executors. Only use `Terminal.WriteLine(...)` directly when you are sure that the output target is the current default terminal.
 
 ## Terminal Extension Methods
 

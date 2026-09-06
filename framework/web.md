@@ -5,17 +5,21 @@ icon: globe
 
 # Web Fundamentals
 
-Zongsoft.Web provides general controller, binding, formatting, routing, credential authentication and file access capabilities; Zongsoft.Plugins.Web integrates these capabilities into the plugin host and is responsible for Web part discovery and application lifecycle. The business controller is placed in the plugin, and the host is responsible for hosting and assembly.
+[Zongsoft.Web](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Web) provides general controller, binding, formatting, routing, credential authentication and file access capabilities; [Zongsoft.Plugins.Web](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Plugins.Web) integrates these capabilities into the plugin host and is responsible for Web part discovery and application lifecycle. The business controller is placed in the plugin, and the host is responsible for hosting and assembly.
+
+{% hint style="info" %}
+When designing and implementing business HTTP APIs, follow the [REST API Design Guidelines](https://github.com/Zongsoft/Guidelines/blob/main/zongsoft.rest-api.guidelines.md) (in Chinese). See [Prerequisites: Development Guidelines](../get-started/prerequisites.md#development-guidelines) for C# coding conventions and shared development requirements.
+{% endhint %}
 
 ## First Understand What the Request Goes Through
 
 A request is first processed by the host middleware, and then matched with the controller and operation; model binding converts the path, query, request header and request body into parameters, the controller calls the business service, and the formatter outputs the response. Authentication establishes the identity of the caller, and authorization determines whether an operation is allowed. Both have their own responsibilities.
 
-The plugin web portal will initialize the application context and application initializer, then add CORS, localization, method coverage, routing, authentication, authorization, response compression and static files, and finally map the controller and Hub. Check relative order when extending middleware rather than reinstalling the entire pipeline.
+The plugin web portal will initialize the application context and application [initializer](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationInitializer.cs), then add CORS, localization, method coverage, routing, authentication, authorization, response compression and static files, and finally map the controller and Hub. Check relative order when extending middleware rather than reinstalling the entire pipeline.
 
 ## Choose How to Use It
 
-Reference Zongsoft.Web when you only need the MVC auxiliary capabilities of the framework; use the Plugins.Web host when you need to discover the business controller through the manifest. Ready-made launcher see [Web Host](../hosting/web.md).
+Reference [Zongsoft.Web](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Web) when you only need the MVC auxiliary capabilities of the framework; use the Plugins.Web host when you need to discover the business controller through the manifest. Ready-made launcher see [Web Host](../hosting/web.md).
 
 Source: [hosting/web/default/Program.cs](https://github.com/Zongsoft/hosting/blob/main/web/default/Program.cs#L12) (excerpt; see source for context).
 
@@ -34,7 +38,7 @@ static void Main(string[] args)
 ```
 {% endcode %}
 
-The project needs to reference `Zongsoft.Plugins.Web`, and the runtime directory also needs a basic plugin list and business plugins. This entry itself does not generate a business API or database structure.
+The project needs to reference [`Zongsoft.Plugins.Web`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Plugins.Web), and the runtime directory also needs a basic plugin list and business plugins. This entry itself does not generate a business API or database structure.
 
 ## Learning Path
 

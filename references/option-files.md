@@ -46,7 +46,7 @@ Scalars use attributes; XML text nodes are processed as collection items, and at
 
 ## Primary Names for Lists and Options
 
-Discussions' Zongsoft.Discussions.plugin has the same main file name as Zongsoft.Discussions.option. The plugin configuration provider matches options by the file name of the loaded manifest, not by an arbitrary search by the plugin's name attribute. Just having the correct XML won't work when the file isn't deployed or the manifest isn't loaded.
+Discussions' [Zongsoft.Discussions.plugin](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.plugin) has the same main file name as [Zongsoft.Discussions.option](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.option). The plugin configuration provider matches options by the file name of the loaded manifest, not by an arbitrary search by the plugin's name attribute. Just having the correct XML won't work when the file isn't deployed or the manifest isn't loaded.
 
 The environment, host, and site parameters also affect attachment file matching. Host-level and plugin-level rules are different. Some environment attachment patterns at the plugin level contain hyphens. When you need to add an environment file, you should check [Plugin configuration provider](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Plugins/src/Configuration/PluginConfigurationProvider.cs). Candidate rules in the document cannot be regarded as files that already exist in the repository.
 

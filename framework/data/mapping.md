@@ -6,7 +6,7 @@ icon: table
 # Mapping Files
 
 
-.mapping maps the domain model to the database structure. It declares tables, keys, fields and navigation relationships, and can be delivered with business plugins; it does not create a database itself, nor perform migrations. The mapping for Discussions is placed in a single Zongsoft.Discussions.mapping, and the container name is Discussions.
+.mapping maps the domain model to the database structure. It declares tables, keys, fields and navigation relationships, and can be delivered with business plugins; it does not create a database itself, nor perform migrations. The mapping for Discussions is placed in a single [Zongsoft.Discussions.mapping](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.mapping), and the container name is Discussions.
 
 ## The Forum Number Belongs to the Site
 

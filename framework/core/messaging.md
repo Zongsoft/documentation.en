@@ -42,7 +42,7 @@ flowchart LR
 | `IMessageQueueProvider` | A queue provider that discovers and reuses queue instances by name from the application configuration. |
 | `MessageQueueBase<TSubscriber>` | Queue base class, which implements send and subscription overloads, default topic resolution, subscription collection and release processes. |
 | `MessageConsumerBase<TQueue>` | The consumer base class incorporates the subscription lifecycle into the [Channel](communication/general.md) shutdown model. |
-| `MessageQueueGuarder` | Host worker, starts a set of subscriptions according to configuration, and cancels subscriptions when stopped. |
+| `MessageQueueGuarder` | Host [worker](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Components/IWorker.cs), starts a set of subscriptions according to configuration, and cancels subscriptions when stopped. |
 
 The handler uses [`IHandler<T>`](components/handler.md) to undertake the message processing logic. In this way, the subscription callback can be a simple delegate or a reusable, injectable, and composable handler object.
 

@@ -24,7 +24,7 @@ When the database has been determined, you can enter it from the corresponding p
 
 ## Plugin Registration
 
-The driver is deployed as a plugin. Taking MySQL as an example, the plugin will depend on `Zongsoft.Data` and register objects with two extension points:
+The driver is deployed as a plugin. Taking MySQL as an example, the plugin will depend on [`Zongsoft.Data`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Data) and register objects with two extension points:
 
 Source: [framework/Zongsoft.Data/drivers/mysql/src/Zongsoft.Data.MySql.plugin](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Data/drivers/mysql/src/Zongsoft.Data.MySql.plugin#L19) (excerpt; see source for context).
 
@@ -43,7 +43,7 @@ Source: [framework/Zongsoft.Data/drivers/mysql/src/Zongsoft.Data.MySql.plugin](h
 Before using a database, check three things:
 
 - There are corresponding drivers `.plugin` and `.dll` in the plugin directory.
-- The driver plugin declares dependence on `Zongsoft.Data`.
+- The driver plugin declares dependence on [`Zongsoft.Data`](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Data).
 - The `driver` name of the connection configuration is consistent with the plugin registration name.
 
 If the accessor cannot be created, first check whether the connection configuration path, default connection name and driver plugin are loaded.

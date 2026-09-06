@@ -78,7 +78,7 @@ Assert.Equal(2.0f, (float)token.Value);
 ```
 {% endcode %}
 
-Discussions does not construct its own lexer; the Core test above asserts the integer constant 1, the plus sign, and the single-precision constant 2, in that order. Full testing continues to cover identifiers, strings, minus signs, and other operators. Subsequently, whether it is a normal condition, a data query condition, or a command parameter condition depends on how the caller interprets these tokens.
+Discussions does not construct its own lexer; the [Core](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) test above asserts the integer constant 1, the plus sign, and the single-precision constant 2, in that order. Full testing continues to cover identifiers, strings, minus signs, and other operators. Subsequently, whether it is a normal condition, a data query condition, or a command parameter condition depends on how the caller interprets these tokens.
 
 ## Token Rules
 
