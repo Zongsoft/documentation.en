@@ -41,7 +41,7 @@ Add differences in merchant and customer permissions, product customization, and
 
 ![Within one application, scattered responsibilities such as creating orders, confirming payments, and sending commands are grouped into trading, payment, and IoT modules.](../../.gitbook/assets/why-pluginization-boundaries.svg)
 
-_Figure 1: Above, capabilities are scattered. Below, the same capabilities belong to trading, payment, and IoT modules. No capabilities have been removed or processes separated; ownership and collaboration boundaries have changed. Adapted from [Hiisea’s business-grouping figure (micro-module.png)](https://www.cnblogs.com/hiisea/p/16624472.html), replacing abstract feature identifiers with this article’s business responsibilities._
+_Figure 1: Above, capabilities are scattered. Below, the same capabilities belong to trading, payment, and IoT modules. No capabilities have been removed or processes separated; ownership and collaboration boundaries have changed._
 
 {% hint style="info" %}
 The problem discussed here is an application whose unclear boundaries make changes interfere with one another. **A monolith describes deployment; modularity describes internal structure.** A monolith can have sound module boundaries, and multiple services can remain tightly coupled. Directories such as `Models/` are useful; trouble arises when technical roles are the application's only organizing principle.
@@ -49,7 +49,7 @@ The problem discussed here is an application whose unclear boundaries make chang
 
 ## Cut Horizontally First: Layered Order
 
-Hiisea's [cake-slicing article](https://www.cnblogs.com/hiisea/p/16914890.html) uses horizontal and vertical cuts to explain complementary ways to divide an application. On the server, first identify three kinds of responsibility: entry adapters, business rules, and data access and resources.
+Horizontal layering and vertical division into business modules are complementary ways to organize an application. On the server, first identify three layers by technical responsibility: entry adapters, business rules, and data access and resources.
 
 Entry adapters interpret external requests, business rules decide what may happen, and data access stores and retrieves the results. Receiving a payment notification and deciding whether a payment may move from processing to success are different responsibilities, even when they execute in sequence.
 
@@ -67,7 +67,7 @@ Layers alone are insufficient. If order, refund, membership, and device rules st
 
 A vertical cut asks: **which rules, data, and resources should be owned together around a business responsibility?** Payments owns the meaning of payments and refunds; trading owns orders and fulfillment; IoT owns device integration and communication. Each module can remain layered internally while collaborating through explicit service contracts, events, or extension points.
 
-Hiisea's [micro-module concept](https://www.cnblogs.com/hiisea/p/16624472.html) groups a business area's code and resources together. Completeness is the useful idea, rather than making “micro” mean as few files as possible. A handful of extracted business classes remains difficult to maintain independently if their mappings, settings, and entry adapters belong elsewhere.
+A business module should group a business area's code and resources together, keeping its responsibilities complete. File count alone cannot determine a useful boundary: a handful of extracted business classes remains difficult to maintain independently if their mappings, settings, and entry adapters belong elsewhere.
 
 ### From Business Modules to Plugin Composition
 
@@ -81,7 +81,7 @@ Automao's payment module has three recognizable groups of collaborating artifact
 
 ![Trading, payment, and IoT modules each own their models, services, site adapters, manifests, mappings, settings, and resources, plus relevant extensions, providers, or protocols.](../../.gitbook/assets/why-pluginization-anatomy.svg)
 
-_Figure 3: Each module owns its business implementation and accompanying files. The payment module in the middle includes payment/refund models, services, events, site adapters, and providers, matching the three artifact groups above. A module may span multiple assemblies and plugins; the illustrated files are not mandatory for every plugin. Adapted from [Hiisea’s complete-module figure (micro-domain.png)](https://www.cnblogs.com/hiisea/p/16624472.html), replacing frontend responsibilities with Zongsoft server-side organization._
+_Figure 3: Each module owns its business implementation and accompanying files. The payment module in the middle includes payment/refund models, services, events, site adapters, and providers, matching the three artifact groups above. A module may span multiple assemblies and plugins; the illustrated files are not mandatory for every plugin._
 
 One payment business module can therefore involve foundation, site-service, Web, provider, and background plugins. See [Core Concepts](../concepts.md#module-service-provider) for the distinction between application modules, assemblies, and plugins.
 
@@ -127,7 +127,7 @@ Building blocks make this reuse tangible: squares, bars, triangles, and semicirc
 
 ![Squares, bars, triangles, and semicircles form four different arrangements, A through D, illustrating reusable parts and varied compositions.](../../.gitbook/assets/why-pluginization-building-blocks.svg)
 
-_Figure 5: The same types of basic blocks form different combinations. Redrawn from the [building-block illustration referenced in Hiisea's article](https://www.cnblogs.com/hiisea/p/16624472.html). This is an analogy for reuse through composition; software modules must still respect contracts and dependencies._
+_Figure 5: The same types of basic blocks form different combinations. This is an analogy for reuse through composition; software modules must still respect contracts and dependencies._
 
 ## Turn the Directory Structure Around
 
@@ -209,4 +209,3 @@ For a complex system such as Automao, the value is in making developers able to 
 - Reuse capabilities across entry points: [Reusing Business Capabilities Across Hosts](host-independent-business.md).
 - Define collaboration: [Designing Extension Points as Collaboration Contracts](extension-contracts.md).
 - Translate organization into a running application: [Plugin Application Model](../../framework/plugins/application-model.md) and [Plugin Manifests and Loading](../../framework/plugins/plugin-file.md).
-- Hiisea: [EluxJS—Slicing a Frontend Monolith Like a Cake](https://www.cnblogs.com/hiisea/p/16914890.html) and [Micro-modules—Exploring Frontend Business Modularization](https://www.cnblogs.com/hiisea/p/16624472.html), both in Chinese. This article borrows their explanatory ideas of layering, business grouping, and composition. Figures 1 and 3 adapt the second article’s business-grouping and complete-module diagrams as SVG; Figures 2 and 4 redraw this article's original Mermaid flowcharts as SVG; Figure 5 redraws the building-block illustration referenced in the second article. None represents an Automao deployment topology. Elux's frontend runtime and Zongsoft's plugin composition mechanisms should be understood separately.
