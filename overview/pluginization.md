@@ -34,12 +34,13 @@ Plugin architecture solves the organizational problems of large business systems
 
 ## Plugin Design Essays
 
-These four essays examine design choices and their costs through the existing forum implementation. Read them in order or start with your current question. “Proposed” in the illustrations identifies a design scenario; the text explains which capabilities currently exist.
+These articles examine design choices and their costs through the existing forum implementation, beginning with why pluginization exists. Read them in order or start with your current question. “Proposed” in the illustrations identifies a design scenario; the text explains which capabilities currently exist.
 
-1. [Finding Module Boundaries Through Business Changes](pluginization/business-boundaries.md): Use changes to moderation, content, and statistics to establish ownership.
-2. [Reusing Business Capabilities Across Hosts](pluginization/host-independent-business.md): Separate business operations, entry adapters, identity, and lifecycles.
-3. [Designing Extension Points as Collaboration Contracts](pluginization/extension-contracts.md): Define extension paths, service calls, names, and failure semantics.
-4. [From Incremental Change to Verified Plugin Delivery](pluginization/evolutionary-delivery.md): Validate release combinations and evaluate data compatibility and process separation.
+1. [Why Pluginize](pluginization/why-pluginization.md): The pain of a monolith, and the changes that layering, slicing, and organizing by business domain bring.
+2. [Finding Module Boundaries Through Business Changes](pluginization/business-boundaries.md): Use changes to moderation, content, and statistics to establish ownership.
+3. [Reusing Business Capabilities Across Hosts](pluginization/host-independent-business.md): Separate business operations, entry adapters, identity, and lifecycles.
+4. [Designing Extension Points as Collaboration Contracts](pluginization/extension-contracts.md): Define extension paths, service calls, names, and failure semantics.
+5. [From Incremental Change to Verified Plugin Delivery](pluginization/evolutionary-delivery.md): Validate release combinations and evaluate data compatibility and process separation.
 
 ## Document Reading Suggestions
 

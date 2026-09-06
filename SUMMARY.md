@@ -9,6 +9,7 @@
 * [Architecture Overview](overview/architecture.md)
 * [Core Concepts and Collaboration](overview/concepts.md)
 * [Plugin Architecture](overview/pluginization.md)
+  * [Why Pluginize](overview/pluginization/why-pluginization.md)
   * [Finding Module Boundaries Through Business Changes](overview/pluginization/business-boundaries.md)
   * [Reusing Business Capabilities Across Hosts](overview/pluginization/host-independent-business.md)
   * [Designing Extension Points as Collaboration Contracts](overview/pluginization/extension-contracts.md)

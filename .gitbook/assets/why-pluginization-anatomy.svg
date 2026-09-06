@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc" xml:lang="en">
+	<title id="title">Each module owns its implementation and resources</title>
+	<desc id="desc">An application comprises trading, payment, and IoT modules. Each owns models, services, events or handlers, site adapters, manifests, settings, mappings, and resources, with product extensions, payment providers, or device protocols where appropriate. Adapted from Hiisea’s micro-domain.png for server-side plugins.</desc>
+	<defs>
+		<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#718698" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+		<filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#18354B" flood-opacity="0.06"/></filter>
+	</defs>
+	<g font-family="'Segoe UI', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif">
+		<rect x="0" y="0" width="1200" height="900" rx="0" fill="#F6F8FB" stroke="none" />
+		<text x="48" y="60" font-size="32" fill="#21364A" font-weight="700" text-anchor="start" >Each module owns its implementation and resources</text>
+		<text x="48" y="97" font-size="20" fill="#60758A" font-weight="400" text-anchor="start" >Keep each module’s working parts together and define how modules collaborate</text>
+		<rect x="346" y="124" width="508" height="80" rx="18" fill="#203A50" stroke="none" />
+		<text x="600" y="174" font-size="23" fill="#FFFFFF" font-weight="600" text-anchor="middle" >Application · Composed of business modules</text>
+		<path d="M600 207 V230" fill="none" stroke="#718698" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+		<path d="M224 253 V238 Q224 230 232 230 H968 Q976 230 976 238 V253" fill="none" stroke="#718698" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+		<path d="M600 230 V253" fill="none" stroke="#718698" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+		<path d="M224 243 V253" fill="none" stroke="#718698" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+		<path d="M976 243 V253" fill="none" stroke="#718698" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+		<rect x="48" y="256" width="352" height="532" rx="20" fill="#FFFFFF" stroke="#DFE6ED" filter="url(#shadow)"/>
+		<rect x="48" y="256" width="352" height="66" rx="18" fill="#E6F4EF" stroke="none" />
+		<rect x="48" y="300" width="352" height="22" rx="0" fill="#E6F4EF" stroke="none" />
+		<text x="70" y="298" font-size="25" fill="#287C68" font-weight="650" text-anchor="start" >Trading module</text>
+		<rect x="66" y="339" width="104" height="264" rx="10" fill="#F1F4F8" stroke="none" />
+		<text x="118" y="370" font-size="18" fill="#60758A" font-weight="600" text-anchor="middle" >Artifacts</text>
+		<text x="118" y="416" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >.plugin</text>
+		<text x="118" y="461" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >.option</text>
+		<text x="118" y="506" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >.mapping</text>
+		<text x="118" y="551" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >Resources</text>
+		<rect x="182" y="339" width="200" height="48" rx="10" fill="#E6F4EF" stroke="none" />
+		<text x="282.0" y="368.95" font-size="17" fill="#287C68" font-weight="500" text-anchor="middle" >Orders &amp; items</text>
+		<rect x="182" y="393" width="200" height="48" rx="10" fill="#E6F4EF" stroke="none" />
+		<text x="282.0" y="422.95" font-size="17" fill="#287C68" font-weight="500" text-anchor="middle" >Order services</text>
+		<rect x="182" y="447" width="200" height="48" rx="10" fill="#E6F4EF" stroke="none" />
+		<text x="282.0" y="476.95" font-size="17" fill="#287C68" font-weight="500" text-anchor="middle" >Trading events</text>
+		<rect x="182" y="501" width="200" height="48" rx="10" fill="#E6F4EF" stroke="none" />
+		<text x="282.0" y="530.95" font-size="17" fill="#287C68" font-weight="500" text-anchor="middle" >Site services</text>
+		<rect x="182" y="555" width="200" height="48" rx="10" fill="#E6F4EF" stroke="none" />
+		<text x="282.0" y="584.95" font-size="17" fill="#287C68" font-weight="500" text-anchor="middle" >Web APIs</text>
+		<rect x="66" y="622" width="316" height="142" rx="12" fill="#E6F4EF" stroke="none" />
+		<text x="84" y="654" font-size="21" fill="#287C68" font-weight="650" text-anchor="start" >Product extensions</text>
+		<text x="84" y="693" font-size="18" fill="#287C68" font-weight="400" text-anchor="start" >Vending / IoT integration</text>
+		<rect x="424" y="256" width="352" height="532" rx="20" fill="#FFFFFF" stroke="#DFE6ED" filter="url(#shadow)"/>
+		<rect x="424" y="256" width="352" height="66" rx="18" fill="#ECF0FB" stroke="none" />
+		<rect x="424" y="300" width="352" height="22" rx="0" fill="#ECF0FB" stroke="none" />
+		<text x="446" y="298" font-size="25" fill="#5367A1" font-weight="650" text-anchor="start" >Payment module</text>
+		<rect x="442" y="339" width="104" height="264" rx="10" fill="#F1F4F8" stroke="none" />
+		<text x="494" y="370" font-size="18" fill="#60758A" font-weight="600" text-anchor="middle" >Artifacts</text>
+		<text x="494" y="416" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >.plugin</text>
+		<text x="494" y="461" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >.option</text>
+		<text x="494" y="506" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >.mapping</text>
+		<text x="494" y="551" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >Resources</text>
+		<rect x="558" y="339" width="200" height="48" rx="10" fill="#ECF0FB" stroke="none" />
+		<text x="658.0" y="368.95" font-size="17" fill="#5367A1" font-weight="500" text-anchor="middle" >Payments &amp; refunds</text>
+		<rect x="558" y="393" width="200" height="48" rx="10" fill="#ECF0FB" stroke="none" />
+		<text x="658.0" y="422.95" font-size="17" fill="#5367A1" font-weight="500" text-anchor="middle" >Payment services</text>
+		<rect x="558" y="447" width="200" height="48" rx="10" fill="#ECF0FB" stroke="none" />
+		<text x="658.0" y="476.95" font-size="17" fill="#5367A1" font-weight="500" text-anchor="middle" >Payment/refund events</text>
+		<rect x="558" y="501" width="200" height="48" rx="10" fill="#ECF0FB" stroke="none" />
+		<text x="658.0" y="530.95" font-size="17" fill="#5367A1" font-weight="500" text-anchor="middle" >Site services</text>
+		<rect x="558" y="555" width="200" height="48" rx="10" fill="#ECF0FB" stroke="none" />
+		<text x="658.0" y="584.95" font-size="17" fill="#5367A1" font-weight="500" text-anchor="middle" >Web APIs</text>
+		<rect x="442" y="622" width="316" height="142" rx="12" fill="#ECF0FB" stroke="none" />
+		<text x="460" y="654" font-size="21" fill="#5367A1" font-weight="650" text-anchor="start" >Payment providers</text>
+		<text x="460" y="693" font-size="18" fill="#5367A1" font-weight="400" text-anchor="start" >WeChat Pay · Alipay</text>
+		<text x="460" y="724" font-size="18" fill="#5367A1" font-weight="400" text-anchor="start" >Cash · Stored-value cards</text>
+		<rect x="800" y="256" width="352" height="532" rx="20" fill="#FFFFFF" stroke="#DFE6ED" filter="url(#shadow)"/>
+		<rect x="800" y="256" width="352" height="66" rx="18" fill="#FFF3DF" stroke="none" />
+		<rect x="800" y="300" width="352" height="22" rx="0" fill="#FFF3DF" stroke="none" />
+		<text x="822" y="298" font-size="25" fill="#9C712F" font-weight="650" text-anchor="start" >IoT module</text>
+		<rect x="818" y="339" width="104" height="264" rx="10" fill="#F1F4F8" stroke="none" />
+		<text x="870" y="370" font-size="18" fill="#60758A" font-weight="600" text-anchor="middle" >Artifacts</text>
+		<text x="870" y="416" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >.plugin</text>
+		<text x="870" y="461" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >.option</text>
+		<text x="870" y="506" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >.mapping</text>
+		<text x="870" y="551" font-size="17" fill="#526A7F" font-weight="500" text-anchor="middle" >Resources</text>
+		<rect x="934" y="339" width="200" height="48" rx="10" fill="#FFF3DF" stroke="none" />
+		<text x="1034.0" y="368.95" font-size="17" fill="#9C712F" font-weight="500" text-anchor="middle" >Devices &amp; state</text>
+		<rect x="934" y="393" width="200" height="48" rx="10" fill="#FFF3DF" stroke="none" />
+		<text x="1034.0" y="422.95" font-size="17" fill="#9C712F" font-weight="500" text-anchor="middle" >Device services</text>
+		<rect x="934" y="447" width="200" height="48" rx="10" fill="#FFF3DF" stroke="none" />
+		<text x="1034.0" y="476.95" font-size="17" fill="#9C712F" font-weight="500" text-anchor="middle" >Device handlers</text>
+		<rect x="934" y="501" width="200" height="48" rx="10" fill="#FFF3DF" stroke="none" />
+		<text x="1034.0" y="530.95" font-size="17" fill="#9C712F" font-weight="500" text-anchor="middle" >Site services</text>
+		<rect x="934" y="555" width="200" height="48" rx="10" fill="#FFF3DF" stroke="none" />
+		<text x="1034.0" y="584.95" font-size="17" fill="#9C712F" font-weight="500" text-anchor="middle" >Web / device APIs</text>
+		<rect x="818" y="622" width="316" height="142" rx="12" fill="#FFF3DF" stroke="none" />
+		<text x="836" y="654" font-size="21" fill="#9C712F" font-weight="650" text-anchor="start" >Protocols &amp; providers</text>
+		<text x="836" y="693" font-size="18" fill="#9C712F" font-weight="400" text-anchor="start" >Device protocols · MQTT</text>
+		<text x="48" y="831" font-size="19" fill="#60758A" font-weight="400" text-anchor="start" >A module may span multiple assemblies and plugins; accompanying files are included as needed.</text>
+		<text x="48" y="866" font-size="19" fill="#60758A" font-weight="400" text-anchor="start" >These are business ownership boundaries, not dedicated processes or databases.</text>
+		<metadata>Adapted from Hiisea, micro-domain.png. Source: https://www.cnblogs.com/hiisea/p/16624472.html</metadata>
+	</g>
+</svg>

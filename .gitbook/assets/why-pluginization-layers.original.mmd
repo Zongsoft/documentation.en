@@ -1,0 +1,23 @@
+flowchart TB
+	subgraph HOST["Host (carries the runtime)"]
+		h["Process / Configuration / Lifecycle"]
+	end
+
+	subgraph SLICE1["Trading module"]
+		direction LR
+		s1a["Entry adapters"] --> s1b["Business rules"] --> s1c["Data & resources"]
+	end
+
+	subgraph SLICE2["Paying module"]
+		direction LR
+		s2a["Entry adapters"] --> s2b["Business rules"] --> s2c["Data & resources"]
+	end
+
+	subgraph SLICE3["IoT module"]
+		direction LR
+		s3a["Entry adapters"] --> s3b["Business rules"] --> s3c["Data & resources"]
+	end
+
+	h --> s1a
+	h --> s2a
+	h --> s3a

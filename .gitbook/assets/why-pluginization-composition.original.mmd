@@ -1,0 +1,26 @@
+flowchart LR
+	subgraph MODULES["Business modules (each independent)"]
+		direction TB
+		m1["Trading"]
+		m2["Paying"]
+		m3["Membership"]
+		m4["IoT"]
+		m5["Reporting · Statistics · more"]
+	end
+
+	subgraph SITE["Sites (six kinds of entry)"]
+		direction LR
+		st1["Administration"] --- st2["Merchant"] --- st3["Customer"] --- st4["Gateway"] --- st5["Device"]
+	end
+
+	subgraph DOMAIN["Domains (general / education / medical / more)"]
+		direction LR
+		d1["General"] --- d2["Education"] --- d3["Medical"] --- d4["More"]
+	end
+
+	MODULES --> COMBO["Deployment manifest: compose by product and deployment"]
+	SITE --> COMBO
+	DOMAIN --> COMBO
+
+	COMBO --> PUB["Public cloud SaaS: multi-tenant combination"]
+	COMBO --> PRIV["Private deployment: trimmed combination"]
