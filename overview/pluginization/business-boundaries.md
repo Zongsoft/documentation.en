@@ -1,65 +1,77 @@
 ---
-description: Use changes to forum moderation, content, and statistics to decide which capabilities belong together and which dependencies deserve a separate boundary.
+description: "Find module boundaries through business change: rules, composition, compilation, and delivery each answer a different question."
 icon: cubes
 ---
 
 # Finding Module Boundaries Through Business Changes
 
-A forum introduces a moderation rule that affects thread state, content visibility, and queries. If implementing it requires coordination across separately owned model, service, and controller libraries, the first question is who owns the rule. Classifying files does not necessarily give business changes a clear owner.
+Suppose the forum adds a moderation rule. One requirement typically touches thread state, content visibility, author statistics, and related queries at the same time. If the code is already split into model, service, and controller libraries, the change still crosses several directories and possibly several teams. File classification has not found a clear owner for the business.
 
-With Zongsoft, start with a complete business operation to find a boundary, then choose assemblies, plugin manifests, and deployment packages to support it. This article uses the existing forum module as evidence. Its decomposition recommendations are design methods, not a directory structure mandated by the framework.
+Module boundaries should follow business change, not code function or directory position. Zongsoft's plugin architecture provides four layers of organization — application modules, assemblies, plugin manifests, and deployment files — and each layer answers exactly one question. First decide which change, which rules, and which acceptance criteria belong together, then choose the mechanism that carries them.
 
-![Forum ownership and a proposed search extension](../../.gitbook/assets/zongsoft-plugin-business-boundaries.png)
+![Discussions ownership and a proposed extension](../../.gitbook/assets/zongsoft-plugin-business-boundaries.png)
 
-_Moderation, content, and statistics share business ownership, supported by composition and delivery metadata. Search indexing is a candidate extension. Containers represent maintenance responsibility, not database or process isolation._
+_Moderation, content, and statistics rules are organized by business ownership, with manifests, mappings, options, and deployment files delivered alongside the module. Search indexing is a candidate extension that needs its own agreement. The illustration expresses ownership, not database or process isolation._
 
-## Trace the Rules Behind a Change
+## Follow a Single Change First
 
-Approving a thread does more than set a Boolean field. [ThreadService.Approve](https://github.com/Zongsoft/discussions/blob/main/src/Services/ThreadService.cs) combines the thread identifier, its unapproved state, and moderator eligibility into an update condition, and also updates the approval state of its content post. Separate owners for thread approval and content approval would have to maintain this operation's semantics together.
+Approving a thread does more than set a Boolean to true. [ThreadService.Approve](https://github.com/Zongsoft/discussions/blob/main/src/Services/ThreadService.cs) combines the thread identifier, its unapproved state, and moderator eligibility into one update condition, and it also updates the approval state of the thread's content post. Moderation rules, data conditions, and permission checks live in one service; the controller only maps the result to an HTTP response.
 
-Creating a thread also involves content storage and author statistics. The current service performs data insertion and statistics updates inside a transaction, while content-handling logic deals with failures between file storage and database operations. See [Transactions and Consistency](../../framework/data/transactions.md). These relationships offer concrete evidence for boundaries: which data changes together, which failures need joint handling, and which rules need a single explanation.
+Boundaries can be read from real business operations:
 
-Review several recent requirements and record the affected rules, data, and entry points. Parts that repeatedly change together and require joint acceptance are candidates for one business boundary. Grouping every type containing “user” into a shared module can instead mix login identity, forum author statistics, and customer records.
+- Which data always **changes together** (a thread with its content post and statistics);
+- Which rules need **one place to interpret them** (moderator eligibility, visibility, approval state);
+- Which failures must be **handled together** (a thread must not half-commit when writing its content post fails);
+- Which capabilities must be **released and accepted together** (one call works end to end after deployment).
 
-## Four Boundaries, Four Decisions
+Grouping by names alone is unreliable. Two types that both contain “user” do not necessarily belong to the same business: login identity, forum author statistics, and customer records are three different owners. A boundary is a boundary of change and responsibility, not of names.
 
-Zongsoft offers different organizational mechanisms at different stages. Understand their responsibilities before asking one split to accomplish too many goals.
+## Four Layers, One Question Each
 
-| Boundary | Decision it supports | Forum example |
+| Layer | Question it answers | Where the forum shows it |
 | --- | --- | --- |
-| Application module | Business identity, module services, and events | [Module](https://github.com/Zongsoft/discussions/blob/main/src/Module.cs) defines Discussions and its accessor |
-| Assembly | Which types compile together and which dependencies they can reference | The domain library and [Discussions.Web](https://github.com/Zongsoft/discussions/tree/main/src/api) compile separately |
-| Plugin | Which assemblies load and where objects contribute capabilities | Domain and Web manifests declare their composition separately |
-| Deployment configuration | Which versions, settings, and resources ship | `.deploy` files describe artifacts needed in the runtime directory |
+| Application module | What business identity does this capability have; how are module services resolved and where do events belong | [Module](https://github.com/Zongsoft/discussions/blob/main/src/Module.cs) defines Discussions and its accessor |
+| Assembly | Which types compile together and which dependencies may be referenced | The domain library and [Discussions.Web](https://github.com/Zongsoft/discussions/tree/main/src/api) compile separately |
+| Plugin manifest | Which assemblies load at runtime and where their objects attach | The domain manifest declares the module and filters; the Web manifest declares its domain dependency and delivers the controller assembly |
+| Deployment | Which versions, settings, mappings, and resources are delivered | Domain and Web each describe artifact layout in a `.deploy` file |
 
-There is no automatic one-to-one relationship between an [application module](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/src/Services/IApplicationModule.cs) and a plugin. The forum's Web manifest depends on its domain plugin; together they provide access to the forum. Separating the Web assembly can constrain protocol dependencies without creating a separate “Web business module.” See [Modules, Services, and Providers](../concepts.md#module-service-provider).
-
-## Ownership Includes Rules and Delivery Resources
-
-A module's maintenance responsibility should cover the models, services, mappings, options, and resources needed to implement its rules. Adding a C# property while omitting the mapping and database scripts can leave a successfully compiled module unusable. Delivery tests whether the boundary is complete.
-
-This does not require one assembly for every file. The forum's [Web deployment file](https://github.com/Zongsoft/discussions/blob/main/src/api/Zongsoft.Discussions.Web.deploy) delivers its controller plugin and spreadsheet templates, while the [domain deployment file](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.deploy) delivers the domain manifest, options, and mappings. Maintainers need to know how these form a usable capability; separately published files still need compatibility.
-
-Layering remains useful inside a boundary. Services own moderation rules, controllers adapt HTTP, and data access handles persistence. With those responsibilities clear, a moderation change can primarily affect the service and its validation cases. Continue with [Reusing Business Capabilities Across Hosts](host-independent-business.md).
-
-## Test a Proposed Split
-
-Suppose the product needs an external search index for the forum. This is a proposed capability, not an existing forum feature. Its query technology and rebuild process make it a candidate for a separate plugin. First decide acceptable indexing delay, how quickly hidden threads must disappear, how deletion propagates, and how failures recover.
-
-If hiding content must take effect immediately, stale index entries cannot be the sole authority for visibility. The application could verify business state before returning results or implement an update mechanism that meets the required timing. The forum owns visibility rules; the index plugin owns the search implementation. Separating them does not define their agreement.
-
-Conversely, splitting thread approval and content-post approval into separate plugins is questionable without distinct usage scenarios, failure handling, and release schedules. Internal type separation may be sufficient until independent composition provides a real benefit.
-
-## Reinforce Service Domains with Engineering Constraints
-
-Module service containers organize lookup. They cannot prevent code in the same process from referencing another module's implementation or accessing its database. A public-contract-only collaboration policy also needs project-reference review, interface review, and tests. The [Core library](https://github.com/Zongsoft/framework/tree/main/Zongsoft.Core) carries general framework contracts; the product team should assign ownership for product-specific cross-module contracts instead of placing every shared type in an ever-growing common library.
+Application modules and plugins are **not one-to-one**. A module is a business identity; a plugin is a composition unit. The forum's domain manifest mounts the module instance at `/Workbench/Modules`, while the Web manifest depends on the domain plugin and delivers its controllers with the assembly. Splitting out a Web assembly constrains protocol dependencies; it does not require a separate “Web business module.” For the naming relationship, see [Core Concepts](../concepts.md#module-service-provider) and the [Plugin Application Model](../../framework/plugins/application-model.md).
 
 {% hint style="info" %}
-Boundaries can change as understanding improves. A short-lived application with few rules and one deployment configuration may benefit from a simple structure. Add boundaries when recurring changes, team coordination, or separate delivery create a concrete need.
+The four layers can change independently: split assemblies before splitting deployment, or let two plugins compose one module first. Introduce a layer only when the corresponding maintenance or delivery problem actually appears.
 {% endhint %}
 
-When reviewing a candidate module, describe its rules, public entry points, behavior when dependencies are missing, and the artifacts that must be validated together when replacing it. A list of directory names alone needs further work. The next article examines [reusing these entry points across hosts](host-independent-business.md).
+## Completeness: Own the Rules and the Delivery Resources
+
+For a business module to work on its own, its responsibility should cover the models, services, mappings, options, and resources needed to implement its rules. Adding a field only in C# while omitting the [mapping file](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.mapping) and database scripts leaves a module that compiles but cannot run.
+
+Completeness does not mean putting every file into one assembly. The forum's [domain deployment file](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.deploy) delivers the manifest, options, mapping, and assemblies; the [Web deployment file](https://github.com/Zongsoft/discussions/blob/main/src/api/Zongsoft.Discussions.Web.deploy) additionally delivers the Web manifest and spreadsheet templates. Both artifacts must reach the runtime directory together for the Discussions module to work. Separately published files still need compatibility; maintainers must know how the two artifacts form one usable capability.
+
+Layering remains useful inside a boundary: services own rules, controllers adapt HTTP, and data filters shape results. With clear responsibilities, a moderation change can stay mostly in the service and its validation instead of spreading across controllers. For reuse across entry points, see [Reusing Business Capabilities Across Hosts](host-independent-business.md).
+
+## Test a Candidate Split
+
+Suppose the product wants an external search index. It has its own query technology and rebuild process, so it looks like a candidate for an independent plugin. Before splitting, answer these questions: what indexing delay is acceptable, how quickly must a hidden thread disappear from search, how does deletion propagate, and how does the index recover after failure?
+
+If hiding content must take effect immediately, search results cannot rely on a stale index alone. Verify business state before returning results, or design an update mechanism that meets the timing requirement. Visibility rules still belong to the forum; the index plugin only implements search. Splitting does not automatically produce this agreement.
+
+Conversely, if you plan to split “approve thread” and “approve thread content” into two plugins but cannot name distinct usage scenarios, failure handling, and release cadence for each, the added coordination cost usually outweighs the benefit. Keep internal type separation first, and introduce a composition boundary only when independent delivery is actually needed.
+
+{% hint style="warning" %}
+A module service container provides a name-resolution domain, not a security boundary. Code in the same process can still reference another module's implementation or access its database. Tenant isolation, data authorization, and process isolation need their own design; see [Design Principles](../conception.md).
+{% endhint %}
+
+## Reinforce Boundaries with Engineering Constraints
+
+Module containers help organize service lookup, but they cannot force a team to collaborate only through public contracts. If several modules really must evolve independently, also enforce project-reference review, interface review, and contract tests. The Core library is the place for general framework contracts; product-specific cross-module contracts should have an explicit product owner instead of accumulating in an ever-growing shared library.
+
+{% hint style="info" %}
+Boundaries can change as understanding improves. An application with few rules, focused changes, and a short maintenance horizon may be better off with a simple structure. Introduce boundaries when repeated co-change, multi-person collaboration, or independent delivery creates a real need. When reviewing a candidate module, state the rules it owns, the entry points it exposes, its behavior when dependencies are missing, and which artifacts must be validated together when replacing it.
+{% endhint %}
 
 ## Further Reading
 
-Elux's [Micro Modules](https://github.com/hiisea/elux/blob/main/docs/designed/micro-module.md) and its author's [exploration of business modularity](https://www.cnblogs.com/hiisea/p/16624472.html) discuss organizing code and resources around business capabilities. This article develops the topic through forum moderation, Zongsoft module services, and plugin delivery. The frameworks' runtime mechanisms should be understood separately. The linked Elux articles are in Chinese.
+- Continue from a business operation to [reusing business capabilities across hosts](host-independent-business.md).
+- Elux's [micro-module design](https://github.com/hiisea/elux/blob/main/docs/designed/micro-module.md) and its author's exploration of [frontend business modularization](https://www.cnblogs.com/hiisea/p/16624472.html) (in Chinese) approach organizing code and resources around business capabilities; this article develops the idea through Zongsoft's server-side modules, composition, and delivery, whose runtimes should be understood separately.
+- The naming boundary between modules, services, and providers: [Core Concepts](../concepts.md#module-service-provider).
+- Application modules and plugin composition: [Plugin Application Model](../../framework/plugins/application-model.md).

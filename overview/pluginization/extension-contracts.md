@@ -1,75 +1,85 @@
 ---
-description: Design extension paths, object contracts, failure semantics, and compatibility using forum filters and module services as concrete examples.
+description: "An extension point is composed of a composition path and behavioral agreements; give filters, validators, and events maintainable collaboration contracts."
 icon: diagram-project
 ---
 
 # Designing Extension Points as Collaboration Contracts
 
-Loading a plugin establishes that it has entered the runtime environment. Letting another team extend it also requires an agreement about where objects belong, which interfaces they implement, when they run, and who handles failure. An extension point is useful when these agreements let both parties work independently.
+That a plugin loads only means it has entered the runtime. For another team or plugin to extend it, you must also state where objects attach, which contract they implement, when they are invoked, and who is responsible when something fails. An extension point meant to last cannot be just “a list you can add things to”; it has to be a **contract** both sides can work against independently.
 
-Zongsoft's plugin tree makes composition locations explicit, and its service container provides capability lookup. Designers still need to define the business semantics around these mechanisms. This article starts with actual forum filter registration to explain how to maintain a contract other plugins can use.
+Zongsoft's plugin tree makes composition locations explicit, its service container provides capability lookup, and the data engine, Web, and security modules each define the business semantics of their extension points. This article uses the forum's filters to show which agreements a designer needs to add around these mechanisms. For syntax, see [Plugin Manifests and Loading](../../framework/plugins/plugin-file.md) and [Builtins and Services](../../framework/plugins/builtins-and-services.md).
 
-![Filter registration and the behavioral agreement around it](../../.gitbook/assets/zongsoft-plugin-extension-contracts.png)
+## Read Two Responsibilities from an Existing Extension Point
 
-_The left side shows actual forum filter registration, with the path wrapped across two lines. The right side lists design responsibilities rather than five existing manifest settings._
+The forum's [Zongsoft.Discussions.plugin](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.plugin) references the existing module instance at `/Workbench/Modules` and exposes the module accessor's filter collection as a mountable node. It then attaches `PostFilter` and `ThreadFilter` under `/Workbench/Modules/Discussions/Accessor/Filters`.
 
-## Identify Both Sides of an Existing Extension Point
+This composition carries two responsibilities:
 
-The forum's [Zongsoft.Discussions.plugin](https://github.com/Zongsoft/discussions/blob/main/src/Zongsoft.Discussions.plugin) references the existing module instance beneath `/Workbench/Modules` and exposes the accessor's filter collection. It then contributes two filters at `/Workbench/Modules/Discussions/Accessor/Filters`.
+- The module side provides an **extensible collection**: `expose` brings the accessor's `Filters` collection into the plugin tree as a stable mount target.
+- The filter side provides **objects that meet its requirements**: `type` on an `object` describes the builtin type to construct, and the builtin name is a tree node name.
 
-The module provides an extensible collection, while the filters supply objects that meet its requirements. In the manifest, `expose` connects existing members; the `type` on an `object` describes an instance to construct. See the XML in [Plugin Files and Loading](../../framework/plugins/plugin-file.md).
+The path is only part of the contract. Existing filters also match models: `PostFilter` handles posts, while `ThreadFilter` handles threads and their content. A successful mount does not mean every query runs that filter. An external plugin contributing to this collection must understand matching conditions, processing stages, and object lifetimes — not merely copy the path string.
 
-The path is only part of the contract. Existing filters also match models, so successful registration does not mean every query runs every filter. An external plugin contributing to this collection needs to understand matching conditions, processing stages, and object lifetimes instead of merely copying a path string.
+![Filter composition and the behavioral agreements around it](../../.gitbook/assets/zongsoft-plugin-extension-contracts.png)
 
-## Choose Collaboration by Its Completion Requirements
+_The left side shows where the filters attach in the plugin tree; the right side lists the behavioral agreements extension authors must spell out. A successful mount does not make these agreements true._
 
-| Need | Possible mechanism | Agreement to define |
+## Choose the Collaboration Mechanism by Completion Requirements
+
+Modules do not have to collaborate through one mechanism. Ask first what the collaboration must accomplish, then choose:
+
+| Collaboration need | Mechanism to use | Agreement to write down |
 | --- | --- | --- |
-| The caller needs the outcome of this operation | Call a service through an explicit contract | Input, results, permissions, timeouts, and failures |
-| The capability owner lets others contribute processing | Register a filter, handler, or driver at an extension point | Applicability, ordering, shared state, and exceptions |
-| Several interested parties should learn about a fact | Define an event and its handling | Publication timing, payload, and subscriber-failure impact |
-| Work must cross processes or survive delivery failures | Use messaging with an appropriate persistence strategy | Acknowledgment, retry, duplicate handling, and recovery ownership |
+| The caller must get this operation's result | Call a service through an explicit contract | Input, result, permissions, timeout, and failure semantics |
+| The owner lets others join a processing step | Contribute a filter, handler, or driver at an extension point | Applicability, order, shared state, and exception handling |
+| Several interested parties learn that a fact happened | Define an event and its handling | Timing, payload, and the impact of a failing subscriber |
+| Work must cross processes or survive delivery failures | Use messaging with a persistence strategy | Acknowledgment, retry, duplicate handling, and recovery ownership |
 
-These mechanisms can be combined: a service completes an operation, then arranges an external index update after commit. A step required for transaction success should not become an untracked notification merely to reduce coupling. Events reduce references to concrete subscribers while moving some dependencies into event semantics and operational diagnosis.
+The mechanisms can be combined; for example, a service completes an operation and schedules an external index update after commit. But a step that must succeed before a transaction can be confirmed should not become an unacknowledged notification just to feel “decoupled.” Events reduce references to concrete subscribers, but they also move part of the dependency into event semantics and operational diagnostics.
 
 {% hint style="info" %}
-The forum's current [EventRegistry](https://github.com/Zongsoft/discussions/blob/main/src/Module.cs) does not define concrete business events. Exposing `Events` in its manifest does not mean posting or approval publishes events, much less delivers them reliably to a message broker. Such capabilities still need a complete implementation. See [Events](../../framework/core/components/events.md).
+The forum's current [Module](https://github.com/Zongsoft/discussions/blob/main/src/Module.cs) only exposes an event registry through `Events`; it does not mean posting or approval already publishes concrete business events, let alone reliably delivers them to a message queue. Such a capability still needs a full implementation; see [Events](../../framework/core/components/events.md).
 {% endhint %}
 
-## Write an Extension Point's Usage Agreement
+## Write a Usage Agreement for the Extension Point
 
-Suppose a product plans to let third parties add post-approval indexing handlers. Review at least the following information. This is a design proposal, not an existing forum extension API.
+Suppose the product wants third parties to add post-approval handlers. At review time you should at least produce the following statement. This is an extension design suggestion, not an API the forum already offers:
 
-- **Owner and entry point:** Who maintains the extension point, which plugin contributors depend on, and which contract its collection accepts.
-- **Input and applicability:** Whether input contains committed business identifiers or mutable objects, how sites are identified, and which operations trigger processing.
-- **Ordering and concurrency:** Whether handlers have a defined order, run concurrently, or may be called repeatedly. File order should not be treated as a business-ordering guarantee.
-- **Failure and lifecycle:** Whether exceptions affect the main operation, who records and retries failures, and whether shutdown waits for in-flight work.
-- **Compatibility and validation:** How new fields are handled, whether old plugins remain usable, and whether the business works without any contributed handler.
+- **Owner and entry**: who maintains the extension point, which plugin contributors must depend on, and which contract the target collection accepts.
+- **Input and applicability**: whether input is committed business identifiers or mutable objects, how a site is identified, and which operations trigger processing.
+- **Order and concurrency**: whether multiple handlers have an order, run concurrently, or may be invoked repeatedly. File order is not a business-order guarantee.
+- **Failure and lifecycle**: whether an exception affects the main operation, who records and retries, and whether shutdown waits for in-flight work.
+- **Compatibility and validation**: how new fields are handled, whether old plugins keep working, and whether the business still works with no contributed handler.
 
-Exposing more mutable objects makes it easier for consumers to depend on internals. For a long-lived extension, provide input and output suited to its purpose. Avoid turning the entire service container, data accessor, and internal object graph into a public protocol just for convenience.
+The more mutable objects an extension point exposes, the more easily external plugins depend on internals. For an extension meant to be compatible over time, provide input and output proportional to the operation's purpose. Do not turn the whole service container, data accessor, and internal object graph into a public protocol.
 
 ## Review Plugin Dependencies and Project References Together
 
-The forum's [Web manifest](https://github.com/Zongsoft/discussions/blob/main/src/api/Zongsoft.Discussions.Web.plugin) depends on its domain plugin. Assembly references make types available at compilation, manifest dependencies describe runtime composition requirements, and deployment delivers the files. All three should match the actual call relationships. A dependency name does not download a NuGet package automatically.
+The forum's [Web manifest](https://github.com/Zongsoft/discussions/blob/main/src/api/Zongsoft.Discussions.Web.plugin) depends on the domain plugin. Assembly references make types compilable, manifest dependencies describe runtime composition order, and deployment carries the files to the target environment. All three should match the actual call relationships; declaring a name in a manifest does not download a NuGet package.
 
-If two business plugins reference each other's internal services and wait for each other's objects during startup, reconsider responsibility for their collaboration. A stable public contract or a higher-level component owning the complete workflow may help. Dependencies that require immediate results should remain explicit; replacing them with string-based service names does not remove them.
+If two business plugins must reference each other's internal services and wait for each other's objects at startup, first ask whether the collaboration responsibility can be reassigned: extract a stable public contract, or let one higher-level component own the complete flow. Dependencies that need an immediate result should stay explicit; replacing them with string service names does not make the dependency disappear. For module service fallback, see the [Plugin Application Model](../../framework/plugins/application-model.md).
 
-See [Plugin Application Model](../../framework/plugins/application-model.md) for module-first lookup and shared-service fallback. Lookup helps select an implementation, but a consumer still needs to know which capability it requires, where the implementation comes from, and what happens if it is unavailable.
+## Make Names Locatable Without Mixing Name Domains
 
-## Make Names Traceable Without Confusing Their Domains
+A failure record containing only `Discussions` may leave the reader unsure whether it means a module, a plugin, or a configuration section. The forum shows the distinction clearly:
 
-A failure record containing only `Discussions` may leave readers unsure whether it identifies a module, a plugin, or connection configuration. Document both the category of a name and its scope rather than expecting a team to infer relationships from identical strings.
+- Plugin name: `Zongsoft.Discussions.Web` (used for manifest dependencies and composition order).
+- Module name: `Discussions` (the resolution domain for module services).
+- Builtin name: `PostFilter` (a node under the accessor's filter collection).
+- Configuration name: option sections starting with `/Discussions`.
 
-The forum provides a concrete example: the Web plugin is named `Zongsoft.Discussions.Web` and depends on the `Zongsoft.Discussions` plugin; the business module is named `Discussions`; `PostFilter` names a builtin beneath the accessor's filter collection. These names participate in plugin dependencies, module lookup, and tree-node resolution respectively. They are not interchangeable. Document ownership and scope when adding public paths or service aliases, and maintain names used by existing consumers.
+Each participates in plugin dependencies, module lookup, tree-node location, or configuration reading respectively, and they are not interchangeable. When adding a public path, service alias, or configuration key, state its owner and scope, and keep the names existing consumers already use.
 
-## Verify Business Effects as Well as Composition
+## Verify Composition, Then Verify Business Effect
 
-Test cases where the plugin loads but its extension does not behave as expected: model mismatches, duplicate registration, missing target nodes, handler exceptions, ordering changes, and concurrent calls to a shared instance. Checking that a type can be constructed misses these collaboration failures.
+Tests of an extension point should cover “the plugin loaded, but the extension did not behave as expected”: model mismatch, duplicate registration, missing target node, handler exception, ordering change, and concurrent calls on a shared instance. Checking that a type can be constructed misses all of these collaboration failures.
 
-For extensions requiring reliable notification, also examine the failure window between database commit and message publication. Depending on consistency requirements, the application might need persisted pending messages, compensation, or reconciliation. These are application designs, not automatic consequences of framework event support. See [Message Delivery Concepts](../../framework/messaging/concepts.md).
+For extensions that need reliable notification, also examine the failure window between the database commit and the message send. Depending on consistency requirements, you may need persisted pending messages, compensation, or reconciliation; these are application designs and are not implied by “the framework supports events.” See [Message Delivery Concepts](../../framework/messaging/concepts.md) for delivery boundaries.
 
-Clear contracts let maintainers assess compatibility, determine whether a missing optional plugin permits startup, and assign ownership when something fails. The next article tests these agreements through [Incremental Change and Delivery](evolutionary-delivery.md).
+Once the contract is clear, maintainers can judge whether a new plugin is compatible, whether startup may proceed without an optional plugin, and who takes over when something fails. The next article carries these agreements into [verified plugin delivery](evolutionary-delivery.md).
 
 ## Further Reading
 
-Elux's [Micro Module Design](https://github.com/hiisea/elux/blob/main/docs/designed/micro-module.md) provides background on module collaboration, while the author's [namespace article](https://www.cnblogs.com/hiisea/p/16645688.html) prompted consideration of traceable names. Both are in Chinese. This article concerns Zongsoft's plugin tree, service resolution, and server-side failure handling. Its extension paths and runtime behavior come from the linked Zongsoft implementation.
+- Elux's [micro-module design](https://github.com/hiisea/elux/blob/main/docs/designed/micro-module.md) discusses module autonomy and inter-module collaboration (including its evented Action mechanism); this article is about Zongsoft's plugin tree, service resolution, and failure handling, whose runtime behavior follows the linked Zongsoft implementation.
+- Extension paths and service syntax: [Plugin Manifests and Loading](../../framework/plugins/plugin-file.md).
+- Module services and builtin collaboration: [Builtins and Services](../../framework/plugins/builtins-and-services.md).
