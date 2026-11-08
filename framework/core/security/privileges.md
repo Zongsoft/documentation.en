@@ -35,7 +35,7 @@ Permission definition and permission checking are two steps: the definition tell
 
 ## Users, Roles and Members
 
-Both `IUser` and `IRole` inherit Zongsoft's identifiable model. The core attributes include name, enabled status, avatar, nickname, namespace and description. `IUser.Administrator` and `IRole.Administrators` are the administrator names agreed by the framework.
+Both `IUser` and `IRole` inherit Zongsoft's identifiable model. The core attributes include name, enabled status, avatar, nickname, namespace and description. The static classes `Users` and `Roles` provide the built-in names through `Users.Administrator`, `Roles.Administrators`, and `Roles.Security`. Their nested `Identifiers` classes expose `Users.Identifiers.User` (`Zongsoft.Security.User`) and `Roles.Identifiers.Role` (`Zongsoft.Security.Role`) as logical identifier categories. All five values are compile-time string constants, including role names used in authorization attributes.
 
 `Member` represents role members. Members can be users or roles:
 
