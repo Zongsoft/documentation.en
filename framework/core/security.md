@@ -152,9 +152,9 @@ private bool OnTransform(UserIdentity user, Claim claim)
 
 `Password` is the password digest structure recommended by the core library. It packages algorithms, exponents, random numbers and derived values in the same value, with a text format similar to:
 
-Algorithm #index:random number | derived value. This is the format description, see [PasswordTest](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/test/Security/PasswordTest.cs) for actual serialization and validation input.
+Algorithm #index:random number | derived value. This is the format description, see [PasswordTest](https://github.com/Zongsoft/framework/blob/main/Zongsoft.Core/test/unit/Security/PasswordTest.cs) for actual serialization and validation input.
 
-`Password.Generate(...)` uses PBKDF2 to generate digests; defaults to SHA256 when the algorithm parameter is omitted. `Verify(...)` is recalculated based on the algorithm, random number, and exponent saved in the digest, so existing SHA1 digests can still be verified. The old `PasswordUtility` has been marked as obsolete, and new implementations should give priority to `Password`; `Passworder` in business services currently still retains the old format compatibility path, and will need to cooperate with heavy hash migration in the future.
+`Password.Generate(...)` derives passwords with PBKDF2 and defaults to SHA256. `Password.Verify(...)` uses the stored algorithm, factor and nonce. `Passworder.SetAsync` sets or clears a password, `VerifyAsync(identifier, password)` checks a specified user, and `AuthenticateAsync(namespace, identity, password)` authenticates an account and returns its canonical user identifier. The password column stores the complete binary `Password` value.
 
 `ISecretor` and `Secretor` are used for one-time secrets, such as SMS verification codes, email verification codes, password retrieval tokens, or secondary confirmations for sensitive operations. The default implementation saves secrets to distributed cache and supports:
 

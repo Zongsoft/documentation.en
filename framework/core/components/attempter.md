@@ -50,12 +50,12 @@ Source: [framework/Zongsoft.Core/src/Security/Privileges/Authenticators.Identity
 
 {% code title="Authenticators.Identity.cs" %}
 ```csharp
-public async ValueTask<Ticket> VerifyAsync(string key, Requirement requirement, string scenario, Parameters parameters, CancellationToken cancellation = default)
+public async ValueTask<Ticket> AuthenticateAsync(string key, Requirement requirement, string scenario, Parameters parameters, CancellationToken cancellation = default)
 {
 	if(string.IsNullOrWhiteSpace(requirement.Identity))
 	{
 		if(string.IsNullOrEmpty(key))
-			throw new AuthenticationException(SecurityReasons.InvalidIdentity, "Missing identity.");
+			throw new AuthenticationException(SecurityReasons.InvalidIdentity, Properties.Resources.Authentication_MissingIdentity_Message);
 
 		requirement.Identity = key;
 	}
@@ -68,22 +68,17 @@ public async ValueTask<Ticket> VerifyAsync(string key, Requirement requirement, 
 	if(attempter != null && !await attempter.CheckAsync(attempterKey, cancellation))
 		throw new AuthenticationException(SecurityReasons.AccountSuspended);
 
-	//获取当前用户的密钥信息
-	var cipher = await Authentication.Servicer.Users.Passworder.GetAsync(requirement.Identity, requirement.Namespace, cancellation);
+	//验证账号密码并获取用户标识
+	var identifier = await Authentication.Servicer.Users.Passworder.AuthenticateAsync(requirement.Namespace, requirement.Identity, requirement.Password, cancellation);
 
-	//如果帐户不存在则验证失败
-	if(cipher == null)
-		throw new AuthenticationException(SecurityReasons.InvalidIdentity);
-
-	//执行密码验证，如果成功则返回验证成功的票证
-	if(await Authentication.Servicer.Users.Passworder.VerifyAsync(requirement.Password, cipher, cancellation))
+	if(!identifier.IsEmpty)
 	{
 		//通知验证尝试成功，即清空验证失败记录
 		if(attempter != null)
 			await attempter.DoneAsync(attempterKey, cancellation);
 
 		//返回验证成功的票证
-		return this.CreateTicket(cipher.Identifier, requirement);
+		return this.CreateTicket(identifier, requirement);
 	}
 
 	//通知验证尝试失败
@@ -96,7 +91,7 @@ public async ValueTask<Ticket> VerifyAsync(string key, Requirement requirement, 
 ```
 {% endcode %}
 
-Discussions uses the framework security authentication portal, behind which the module challenger supplements the site identity. The above is the reality check, successful cleanup and failed registration process of the core password authenticator. The key consists of the authenticator type, user identity and namespace. Non-existing accounts are thrown directly after failure to read the key. FailAsync here cannot be understood as covering all failure types.
+Discussions uses the framework security authentication portal, behind which the module challenger supplements the site identity. The above is the reality check, successful cleanup and failed registration process of the core password authenticator. The key consists of the authenticator type, user identity and namespace. Missing or disabled accounts throw during account authentication. FailAsync here cannot be understood as covering all failure types.
 
 The cache that `Attempter` relies on needs to support the `ISequence` increment operation, otherwise failed registration cannot be counted atomically. The security module will expose the authentication attempt tracker as a plugin builtin, making it easy to adjust restriction policies through configuration.
 
