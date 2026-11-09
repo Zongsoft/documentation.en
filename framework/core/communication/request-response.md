@@ -44,18 +44,18 @@ Discussions' HTTP controller does not use this set of request-response abstracti
 
 The requester will get `IRequestToken` after calling `RequestAsync`. This token is not the response itself, but the response collector; the caller can enumerate the arriving responses immediately, or give it a wait time.
 
-Source: [framework/messaging/zero/test/ZeroRequesterTests.cs](https://github.com/Zongsoft/framework/blob/main/messaging/zero/test/ZeroRequesterTests.cs#L16) (excerpt; see source for context).
+Source: [framework/messaging/zero/test/ZeroRequesterTest.cs](https://github.com/Zongsoft/framework/blob/main/messaging/zero/test/ZeroRequesterTest.cs#L14) (excerpt; see source for context).
 
-{% code title="ZeroRequesterTests.cs" %}
+{% code title="ZeroRequesterTest.cs" %}
 ```csharp
 public async Task RequesterReceivesImmediateResponses()
 {
 	if(!Global.IsTestingEnabled)
 		return;
 
-	using var server = await ZeroServerScope.StartAsync();
-	using var requesterQueue = ZeroTestUtility.CreateQueue(server.Port, "requester");
-	using var responderQueue = ZeroTestUtility.CreateQueue(server.Port, "responder");
+	await using var server = await ZeroServerScope.StartAsync();
+	await using var requesterQueue = ZeroTestUtility.CreateQueue(server.Port, "requester");
+	await using var responderQueue = ZeroTestUtility.CreateQueue(server.Port, "responder");
 
 	var responder = new ZeroResponder { Queue = responderQueue };
 	responder.Handlers.Add(new EchoHandler());
@@ -70,7 +70,7 @@ public async Task RequesterReceivesImmediateResponses()
 			using var token = await requester.RequestAsync("rpc/echo", Encoding.UTF8.GetBytes($"message-{i}"));
 			Assert.NotNull(token);
 
-			var response = token.GetResponses(TimeSpan.FromSeconds(5)).FirstOrDefault();
+			var response = (await ZeroTestUtility.ReadResponsesAsync(token, TimeSpan.FromSeconds(5), 1)).FirstOrDefault();
 			Assert.NotNull(response);
 			Assert.Equal($"message-{i}", Encoding.UTF8.GetString(response.Data.Span));
 			Assert.Equal(token.Request.Identifier, response.Request.Identifier);
@@ -79,7 +79,7 @@ public async Task RequesterReceivesImmediateResponses()
 	finally
 	{
 		await responder.StopAsync([]);
-		((IDisposable)responder).Dispose();
+		await responder.DisposeAsync();
 	}
 }
 ```

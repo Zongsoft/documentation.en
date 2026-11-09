@@ -56,35 +56,35 @@ settings, redis and linked are established by the same OnExecuteAsync method. Th
 
 If you are not ready to wait, you should check whether the handle you just obtained is IsLocked, and then decide whether to start working. Redis' current acquisition failure will return an unheld handle; just checking that it is not empty is not enough to prove that the lock has been grabbed. The framework tests clearly verify this difference:
 
-Source: [framework/externals/redis/test/RedisDistributedLockTests.cs](https://github.com/Zongsoft/framework/blob/main/externals/redis/test/RedisDistributedLockTests.cs#L40) (excerpt; see source for context).
+Source: [framework/externals/redis/test/RedisDistributedLockTest.cs](https://github.com/Zongsoft/framework/blob/main/externals/redis/test/RedisDistributedLockTest.cs#L38) (excerpt; see source for context).
 
-{% code title="RedisDistributedLockTests.cs" %}
+{% code title="RedisDistributedLockTest.cs" %}
 ```csharp
-await using var first = await cache.AcquireAsync(key, TimeSpan.FromSeconds(2));
-Assert.True(first.IsLocked);
-Assert.True(first.FencingToken > 0);
+		await using var first = await cache.AcquireAsync(KEY, TimeSpan.FromSeconds(2));
+		Assert.True(first.IsLocked);
+		Assert.True(first.FencingToken > 0);
 
-await using var rejected = await cache.AcquireAsync(key, TimeSpan.FromSeconds(2));
-Assert.True(rejected.IsUnheld);
-Assert.Equal(0, rejected.FencingToken);
+		await using var rejected = await cache.AcquireAsync(KEY, TimeSpan.FromSeconds(2));
+		Assert.True(rejected.IsUnheld);
+		Assert.Equal(0, rejected.FencingToken);
 ```
 {% endcode %}
 
-The snippet comes from SuccessfulAcquisitions_ReturnStrictlyIncreasingFencingTokens. The complete test also releases the first lock, reacquires it, and verifies that the fencing token increases. cache and key are from the test fixture, not Discussions configuration.
+The snippet comes from SuccessfulAcquisitions_ReturnStrictlyIncreasingFencingTokens. The complete test also releases the first lock, reacquires it, and verifies that the fencing token increases. cache and KEY are from the test, not Discussions configuration.
 
 ## Renewal and Loss of Ownership
 
 Redis does not automatically renew by default. When enabled, RenewalInterval must be greater than zero and less than Expiry; a null or zero value indicates off, and negative values are rejected. Actual test demonstrates renewal with 300ms lease, 75ms interval:
 
-Source: [framework/externals/redis/test/RedisDistributedLockTests.cs](https://github.com/Zongsoft/framework/blob/main/externals/redis/test/RedisDistributedLockTests.cs#L111) (excerpt; see source for context).
+Source: [framework/externals/redis/test/RedisDistributedLockTest.cs](https://github.com/Zongsoft/framework/blob/main/externals/redis/test/RedisDistributedLockTest.cs#L109) (excerpt; see source for context).
 
-{% code title="RedisDistributedLockTests.cs" %}
+{% code title="RedisDistributedLockTest.cs" %}
 ```csharp
-var options = new DistributedLockOptions(TimeSpan.FromMilliseconds(300))
-{
-	RenewalInterval = TimeSpan.FromMilliseconds(75),
-};
-await using var renewed = await cache.AcquireAsync("automatic", options);
+		var options = new DistributedLockOptions(TimeSpan.FromMilliseconds(300))
+		{
+			RenewalInterval = TimeSpan.FromMilliseconds(75),
+		};
+		await using var renewed = await cache.AcquireAsync("automatic", options);
 ```
 {% endcode %}
 
@@ -155,4 +155,4 @@ CredentialManager.GetCredentialAsync obtains a short lease for the credential re
 * [Service Resolution and Ownership](locating.md)
 * [Redis project](../../externals/projects/redis.md)
 * [Transactions and Consistency](../../data/transactions.md)
-* [Redis lock integration test](https://github.com/Zongsoft/framework/blob/main/externals/redis/test/RedisDistributedLockTests.cs)
+* [Redis lock integration test](https://github.com/Zongsoft/framework/blob/main/externals/redis/test/RedisDistributedLockTest.cs)
