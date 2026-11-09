@@ -89,3 +89,7 @@ These guides follow the process of building a plugin-based application. For pack
 {% hint style="info" %}
 Verbatim source excerpts retain their original comments and literal values, including Chinese text, so they can be checked against the linked source. Page explanations and navigation are translated into English.
 {% endhint %}
+
+## License
+
+This project is licensed under the [MIT](https://github.com/Zongsoft/documentation.en/blob/main/LICENSE) license. Third-party content retains its own copyright and license notices.
